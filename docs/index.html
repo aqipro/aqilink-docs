@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>aipro GmbH - Product Documentation Portal</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <!-- Theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css" />
+
+    <!-- Annoucement -->
+    <!--link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-top-banner-plugin@latest/dist/style.css"/-->
+
+</head>
+<body>
+  <div id="app">Please wait while we load the documentation...</div>
+  <script>
+    window.$docsify = {
+      name: 'Product Documentation', /* Project Name */
+      coverpage: true, // Coverpage anzeigen 
+      loadSidebar: true, // Sidebar laden 
+      loadNavbar: '_navbar.md',
+      auto2top: true,
+      mergeNavbar: true, // Navbar will be merged with the sidebar on smaller screens.
+      subMaxLevel: 3, // TOC Anzahl Level Ueberschriften die beruecksichtigt werden 
+      repo: '', //Github repo: https://github.com/product/documentation zeigt oben rechts eine Ecke (Eselsohr) mit Link zum Repo an
+      autoHeader: true,
+      noEmoji: true,
+      loadFooter: '_footer.md',
+      search: {
+        maxAge: 86400000,
+        paths: [
+          '/aqilink/',
+          '/aqishare/',
+        ],
+        placeholder: {
+          '/de-de/': 'Dokumentation durchsuchen',
+          '/': 'Type to search'
+        },
+        noData: 'No Results!',
+        depth: 3
+      }
+    }
+  </script>
+  
+  <!-- Docsify v4 -->
+  <script src="https://unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="https://unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <script src="https://unpkg.com/docsify-copy-code"></script>
+  <script src="https://unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@alertbox/docsify-footer/dist/docsify-footer.min.js"></script>
+  <!--script src="https://cdn.jsdelivr.net/npm/docsify-top-banner-plugin@latest/dist/index.js"></script-->
+  <script src="https://unpkg.com/docsify-glossary/dist/docsify-glossary.min.js"></script>
+</body>
+</html>
