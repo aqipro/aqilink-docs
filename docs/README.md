@@ -1,34 +1,17 @@
 # Get started
-This is the main documentation portal for our products:
-* **`aqilink`** - SAP certified integration to connect one of the following systems as content repository to SAP S/4HANA:
-   * Nuxeo
-   * Amazon S3
+
+Discover our documentation portal to build, operate, maintain or enhance our SAP certified integration **`aqilink`**. Check [our website](https://aqipro.com) to learn more about the product.
 
 
-   <img src="_media/logo_sap_certified.png" width="250"/>
-
-
-* **`aqishare`** - Low Code data-exchange between SAP and any of the systems above.
+   <img src="_media/architecture_1.png" width="80%" border="0" alt="aqipro - High Level Architecture"/>
 
 
 ## Quick Start
-To jump start with one of our products, just ramp up the related Docker image available on DockerHub. 
-
-```
-docker pull aqipro/aqilink
-``` 
-
-Then, just run it:
-
-``` 
-docker run
-```
+1) Request a [trial version](https://try.aqipro.com)
+2) You'll be provided with a link to download the Docker image
+3) Start the **`aqilink`** container based on the image
+4) Store documents from SAP to the content repository
 
 
-### Prerequisites aqilink
-All requirements that must match to run `aqilink` are listed in the [Prerequisites section](/aqilink/readme.md#prerequisites). Supported platforms of the available storage systems are available under the [Supported Platforms](/aqilink/readme.md#supported-platforms) section.
-
-
-### Prerequisites aqishare
-
-All requirements that must match to run `aqishare` are listed in the [Prerequisites section](/aqishare/readme.md#prerequisites). Supported platforms of the available storage systems are available under the [Supported Platforms](/aqishare/readme.md#supported-platforms) section.
+### Prerequisites 
+Learn about the requirements to run **`aqilink`** in the [Prereqisites section](/aqilink/readme.md#prerequisites). Supported platforms for the available storage systems are listed in the [Supported Platforms](/aqilink/readme.md#supported-platforms) section.
