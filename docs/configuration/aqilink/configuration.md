@@ -1,6 +1,18 @@
 # Configure **`aqilink`**
 
-This chapter explains all configuration options for **`aqilink`** to connect SAP with a content repository. The main configuration has to be done in three different [YAML files](https://yaml.org) which are mapped into the Docker container.
+This chapter explains all configuration options for **`aqilink`** to connect SAP with a content repository. The main configuration is split into three different [YAML files](https://yaml.org) to offer maximum flexibility.  
+
+| File      | Description | 
+| ----------- | ----------- |
+| ``sapHttp.yaml`` | Defines all HTTP inbound connections from the SAP system and maps it to the related section in the `storage.yaml`.  |
+| ``storage.yaml`` | Defines the connection parameters to connect to the reqired repository. |
+| ``sapConnection.yaml`` | Only required for metadata replication. Define the Rest or RFC call and does the mapping of the related parameter. Refer to [**`aqishare`**](/docs/aquishare/) component. |
+
+For the basic 
+
+ The following image shows the relation of the values within the files mentioned below.
+
+<img src="./../_media/aqilink_value_mapping_files.png" width="90%" alt="aqilink Value Mapping"/>
 
 ## SAP HTTP-Content-Server Connection
 The `sapHttp.yaml` defines the inbound connections from the SAP system and maps it to the related repository configuration of the [Storage Connections](#storage-connections) below. 

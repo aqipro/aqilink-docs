@@ -7,5 +7,5 @@
 <img src="_media/logo_sap_certified.png" width="250"/>
 
 [Get started](#get-started)
-[aqishare](aqishare/#)
-[aqilink](aqilink/#)
+[Installation](./installation/)
+[Configuration](./configuration/)
