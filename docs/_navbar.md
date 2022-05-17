@@ -12,6 +12,7 @@
   * [Installation](aqilink/installation.md)
   * [Get a License](aqilink/license.md)
   * [Configuration](aqilink/configuration.md)
+  * [Reference](aqilink/reference/readme.md)
   * [FAQ](aqilink/faq.md)
   
 * Configuration
