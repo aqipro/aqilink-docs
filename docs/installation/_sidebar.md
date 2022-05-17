@@ -8,5 +8,6 @@
   * [Apply the License Key](../installation/license.md)
   * [Next Steps](../installation/next.md)
 * [Configuration](../configuration/ "Configuration")
+* [Reference](../reference/)
 * [FAQ](../faq.md)
 * [Glossary](../_glossary.md)
