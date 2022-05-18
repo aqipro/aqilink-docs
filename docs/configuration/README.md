@@ -21,9 +21,9 @@ The below table lists all available configuration files and its purpose. As expl
 | ``sapHttp.yaml`` | Defines all connections **from** the SAP HTTP-Content-Server and maps it to the related storage. |
 | ``storage.yaml`` | Defines all connections **to** the related repositories. This is the only file which is required by both, `aqilink` and `aqishare`.  |
 | ``sapConnection.yaml`` | Defines all connections **to** related SAP Systems either via Rest (OData) or RFC.  |
-| ``tasks/myTask1.yaml``, <br/>``tasks/myTask2.yaml``, <br/> ``tasks/myTaskx.yaml`` | Defines the action based on the connection. For each action, a separate file has to be created with a unique name within the folder ``tasks/``. This file name itself can be set to any name but should not contain special characters. The file content will be the CRON expression, the query to find related documents in the repository and the Rest service or function module call, for example. This is the most important file for the connection **from** the repository **to** the SAP System and requires the most attention during the configuration. <br> |
+| ``tasks/myTask1.yaml``, <br/>``tasks/myTask2.yaml``, <br/> ``tasks/myTaskx.yaml`` | Defines the action based on the connection. For each action, a separate file has to be created with a unique name within the folder ``tasks/``. This file name itself can be set to any name but should not contain special characters. These are the most important files for the connection **from** the repository **to** the SAP System and requires the most attention during the configuration. <br> |
 
 ## High-level File Association & Flow <!-- {docsify-ignore} -->
-To help understand how the files above are related to each other in a more visual way, refer to the following image . With this in mind, the next step would be to start with the configuration of either [**`aqilink`**](./aqilink/) or/and [**`aqishare`**](./aquishare/).
+To help understand how the files above are related to each other in a more visual way, refer to the following image . With this in mind, the next step would be to start with the configuration of either [**`aqilink`**](./configuration/aqilink/) or/and [**`aqishare`**](./configuration/aqishare/).
 
 <img src="./../_media/aqilink_high-level-architecture-files.png" width="100%" alt="File Association"/>

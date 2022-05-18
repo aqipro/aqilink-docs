@@ -1,4 +1,4 @@
-<!-- docs/aqilink/_sidebar.md -->
+<!-- docs/aqishare/_sidebar.md -->
 
 * [Get Started](/#get-started)
 * [Installation](../../installation/ "Installation")
