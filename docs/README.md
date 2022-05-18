@@ -8,7 +8,7 @@ Discover our documentation portal to build, operate, maintain or enhance our SAP
 
 ## Quick Start
 1) Request a [trial version](https://try.aqipro.com)
-2) Download the **`aqilink`** Docker image
+2) Download the **`aqilink`** Docker image and [install it](./installation/)
 3) Do some basic [configuration](./configuration/aqilink/configuration.md) to connect SAP with the repository
 4) Start using 
 5) Dive deeper and replicate any additional metadata you want from SAP at your repository using our [aqishare](/docs/aqishare/) 
