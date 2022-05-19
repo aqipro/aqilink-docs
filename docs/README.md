@@ -9,10 +9,12 @@ Discover our documentation portal to build, operate, maintain or enhance our SAP
 ## Quick Start
 1) Request a [trial version](https://try.aqipro.com)
 2) Download the **`aqilink`** Docker image and [install it](./installation/)
-3) Do some basic [configuration](./configuration/aqilink/configuration.md) to connect SAP with the repository
+3) Do some basic [configuration](./configuration/) to connect SAP with the repository
 4) Start using 
 5) Dive deeper and replicate any additional metadata you want from SAP at your repository using our [aqishare](/docs/aqishare/) 
 
 
-### Prerequisites 
-Learn about the requirements to run **`aqilink`** in the [Prereqisites section](/aqilink/readme.md#prerequisites). Supported platforms for the available storage systems are listed in the [Supported Platforms](/aqilink/readme.md#supported-platforms) section.
+## Supported Repositories 
+Our SAP certified `aqilink` integration serves the following repositories: 
+* Hyland Nuxeo (Content Management and Digital Asset Management)
+* Amazon S3 (Storage)
