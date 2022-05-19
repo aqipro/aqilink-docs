@@ -1,4 +1,4 @@
-# SAP Connection Properties
+# SAP Connections
 
 The `sapConnection.yaml` specifies the outbound connections to the SAP systems. It also includes the type of the connection, meaning, whether a Rest (OData) service or a SAP function module through RFC is invoked. Depending on the type, different properties are required. The below  tables lists all available properties for an outbound connection to the SAP system.
 
