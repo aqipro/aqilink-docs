@@ -8,4 +8,5 @@
     * [SAP Connections](../configuration/aqishare/sap-connection.md)
     * [Tasks](../configuration/aqishare/tasks.md)
 * [Reference](../reference/readme.md)
+* [FAQ](../../faq.md)
 * [Glossary](../../_glossary.md)

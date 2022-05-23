@@ -6,4 +6,5 @@
   * [aqilink](../configuration/aqilink/ "SAP Certified storate connection")
   * [aqishare](../configuration/aqishare/ "Low Code data-exchange between SAP and content repositories")
 * [Reference](../reference/readme.md)
+* [FAQ](../../faq.md)
 * [Glossary](../../_glossary.md)
