@@ -8,8 +8,7 @@
   * [Contact Us](https://aqipro.com/contact)
 
 * Installation
-  * [Installation](/installation)
-  * [Get a License](aqilink/license.md)
+  * [Installation](installation/)
   * [FAQ](aqilink/faq.md)
   
 * Configuration
