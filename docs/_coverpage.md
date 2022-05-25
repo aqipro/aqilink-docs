@@ -4,8 +4,8 @@
 
 # Documentation Portal
 
-<img src="_media/logo_sap_certified.png" width="250"/>
+<img src="_media/logo_sap_certified.png" alt="SAP certified integration" width="250"/>
 
 [Get started](#get-started)
-[Installation](./installation/)
-[Configuration](./configuration/)
+[Installation](installation/)
+[Configuration](configuration/)
