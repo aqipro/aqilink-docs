@@ -62,3 +62,25 @@ The below table lists all available parameters for the `storage.yaml` to establi
 | ``transport`` | No |  Pass a custom transport.      |  |
 | ``partSize`` | No |  Override the default part size of 64MB for multipart uploads.      |  |
 | ``pathStyle`` | No |  Override default access behavior (path) for non AWS endpoints.      | `true` |
+
+## Connect SAP Content Repository via **`aqilink`** with Repository
+Step-by-step guide to customize SAP to connect a repository (such as Nuxeo or Amazon S3) through **`aqilink`** storing documents through ArchiveLink. The section will refer to the above configurations for [SAP Content Repository Connection](#sap-http-content-server-connection) and [Storage Connection](#storage-connections).
+
+1) Login to the SAP system as Administrator, or at least with acceess to the following transactions: `OAC0`, `OAC2`, `OAC3`, `OAM1`.
+2) Open transaction `OAC0` to create a new connection to a content repository. Now switch to Edit mode and hit `F5`.  
+3) Now create a new entry using the following values:
+   | Property      | Description | Example |
+| ----------- | ----------- | ----------- | 
+| Content Rep. | Unique name for the repository in SAP.  |  `Z1`, `TX` |
+| Description | A description to identify the repository easily. Visible only to SAP admin in the SAP Content Repository overview.  |  `Nuxeo ECM Content Repository` |
+| Document Area | Select `ArchiveLink` from the dropdown list to use ArchiveLink and Attachment functionality. Select `Document Management System` to use SAP DMS (Document Info Records).  |  `ArchiveLink`, `DMS` |
+| Storage Type | Always select `HTTP content server` from the list. |  `HTTP content server` |
+| Version no. | Specify the SAP Content Server version. Supported are `0045`, `0046` and `0047` (recommended for all SAP S/4HANA systems) . |  `0047` |
+| HTTP server | Specify the server, IP address or hostname, where `aqilink` is running. |  `11.2.0.112` |
+| Port Number | Specify the port on the `aqilink` server above where the app is running. Default: `3000`. If necessary change the port mapping based on the used orchestration tool. |  `3000` |
+| HTTP Script | The main entry point of the `aqilink` app. It always starts with the prefix **`sapHttp`** followed by the `name` property in the `sapHttp.yaml`. Refer to [SAP Content Repository Connection](#sap-http-content-server-connection) above. |  `sapHttp/archivelink-nuxeo` |
+
+   <img src="./_media/sap_customizing/0001_oac0_create.png" border="" alt="">
+4) Save the newly created repository.
+5) Test the connection. 
+6) 
