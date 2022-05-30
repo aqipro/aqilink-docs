@@ -13,6 +13,8 @@ Tasks are finally the actions, that are executed against the SAP system and that
 | `trigger` | Yes | Object | Defines the execution of the task either by a CRON expression or an access key to trigger the task manually.<br/>[Refer below to Property `trigger` specification](#property-trigger). | 
 | `query` | Yes | Object | Defines the query which will be executed in the repository to retrieve data that should be processed.<br/> [Refer below to Property `query` specification](#property-query).|
 | `mapping` | Yes | Object | Specifies the SAP function module or Rest service and define the property mapping which should be passed to SAP and the property mapping of the result to the properties of the repository.<br/> [Refer below to Property `mapping` specification](#property-mapping). |
+| `attempts` | No | Number | The total number of attempts to try the job until it completes. If exceeded the document will be excluded for each new run. Default: `3`  |
+| `backoff` | No | Number | Backoff setting for automatic retries if the job fails in Milliseconds. Needs `attempts` to be set. Default: `600000` (10 min)  |
 
 
 ### Property `trigger`
@@ -57,6 +59,13 @@ Support for Nuxeo only - refer to [Nuxeo Documentation | NXQL](https://doc.nuxeo
 | `sortOrder` | No | String Array | The sort order. Default: `DESC`.  | 
 
 > Do not forget to specify an exclusion criterion for the documents in the `query`!
+
+> If you use multiple `YAML` files with same logic but for different [SAP Content Repository Connections](../configuration/aqilink/#sap-http-content-server-connection), make sure to include and exclude the values of the SAP Repository Connections in the files according your needs. Query excerpt to exclude documents arrived via SAP Content Repository Connection `attachments-mySAP`:
+
+```
+... AND sapHttpContent:source <> 'attachments-mySAP'
+```
+
 
 #### Example
 This configuration of the `query` property will find all documents stored from SAP in Nuxeo that has not yet the `fct_sap_replicate_details` facet (which is the exclusion criterion for the Task).
@@ -136,10 +145,11 @@ Specification of the available content properties used for `importParams`, `expo
 | `constant` | No | Boolean | Set `true` to return a constant value in `source`. Set `false` to return a value based on the return of the SAP function module. Default: `false`. |
 | `prefix` | No | String | A value that should be prefixed to the `source` value before storing it to `target`. Can be any constant only.  |  
 | `suffix` | No | String | A suffix that should be appended to the `source` value before storing it to `target`. Can be any constant only. |  
-| `format` | No | String | Used to format the value of `source` before storing it to `target`. Can be used to handle datetimes - example: `YYMMDD`.  |  
+| `format` | No | String | For [**importParams**](#property-importparams) only:<br/> Used to format the value of `source` before passing it to `target`. If the `source` property in the content repository is defined as text but the Import Parameter of the SAP function module requires a date, use this property - example: `YYMMDD`. |  
+| `parse` | No | String | For [**exportParams**](#property-exportparams) only:<br/> If the value of `source` is text but needs to be a parsed to a date for `target`. Sometimes, SAP function modules return a date as text while the property in the content repository is defined a date or datetime. To parse the text into a valid date format use this property. |  
 | `substring` | No | String | Get a substring from `source` before storing it to `target`. Use `start`and optional `end` child elements. Example:<br/>`substring:`<br/>`  start: 5`<br/>`  end: 25` <br/>Refer to [Mozilla substring() documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring#syntax)|
 
-> If you use multiple optional properties to handle the value of the `- source` property, the processing order is the following:<br/> (1) `format`, (2) `prefix`, (3) `suffix`, (4) `substring`.
+> If you use multiple optional properties to handle the value of the `- source` property, the processing order is the following:<br/> (1) `format` or `parse`, (2) `prefix`, (3) `suffix`, (4) `substring`.
 
 
 #### Property `success`
