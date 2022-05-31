@@ -21,7 +21,7 @@ Available settings on the repository file to maintain the feature:
 | ``WebClient Screen-Personas Theme Id`` | If there is any public Screen-Personas theme available, set the ID of the theme to be used after the user logged in.  |  
 | ``WebClient URL Parameter Mapping`` | The most important part. It contains the mapping of the properties to the related SAP transaction.  |  
 
-![Open in SAP](/_media/reference/open_in_sap_repo_1.png)
+![Open in SAP](../_media/reference/open_in_sap_repo_1.png)
 
 ## Usage
 

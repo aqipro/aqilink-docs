@@ -7,10 +7,9 @@ This chapter explain the configuration options for **`aqilink`** to connect SAP 
 | ``sapHttp.yaml`` | Defines all HTTP inbound connections from the SAP system and maps it to the related section in the `storage.yaml`.  |
 | ``storage.yaml`` | Defines the connection parameters to connect to the reqired repository. |
 
- The following image shows the relation of the values within the configuration files.
+The following image shows the relation of the values within the configuration files.
 
 ![aqilink Value Mapping](../../_media/aqilink_value_mapping_files.png)
-
 
 ## SAP HTTP-Content-Server Connection
 The `sapHttp.yaml` defines the inbound connections from the SAP system and maps it to the related repository configuration of the [Storage Connections](#storage-connections). Each inbound connection consists of the 3 properties listed in the table below.
