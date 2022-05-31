@@ -8,7 +8,6 @@ The license key must be stored in property `license` of the file. If there is no
 license: <ENTER-LICENSE-KEY>
 ```
 
-
 ## Queue Monitor
 To provide monitoring of the [Tasks](../configuration/aqishare/tasks.md), the [Bull Queue](https://optimalbits.github.io/bull/) from OptimalBits is used. This queue should only be enabled for debugging, therefore, by default the Bull Queue monitor is disabled. The related property in the `app.yaml` is `queueMonitorEnabled`.
 
@@ -32,7 +31,7 @@ Here are just some most important properties to drive the Redis behaviour:
 | ``password`` | No | Password to login to the databse.   |  
 
 ## Example Configuration
-An example configuration with all available properties for the `app.yaml`.
+Below is an example configuration with the most relevant properties to be present in the `app.yaml`.
 
 ```
 license: 12345-67890-09876-54321
@@ -40,5 +39,4 @@ queueMonitorEnabled: true
 redis:
   host: redis
   port: 6379
-
 ```
