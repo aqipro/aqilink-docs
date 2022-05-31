@@ -10,7 +10,7 @@ This chapter explain the configuration options for **`aqilink`** to connect SAP 
  The following image shows the relation of the values within the configuration files.
 
 ![aqilink Value Mapping](/_media/aqilink_value_mapping_files.png>
-
+ 
 ## SAP HTTP-Content-Server Connection
 The `sapHttp.yaml` defines the inbound connections from the SAP system and maps it to the related repository configuration of the [Storage Connections](#storage-connections). Each inbound connection consists of the 3 properties listed in the table below.
 
@@ -82,5 +82,6 @@ Step-by-step guide to customize SAP to connect a repository (such as Nuxeo or Am
    | HTTP Script | The main entry point of the `aqilink` app. It always starts with the prefix **`sapHttp`** followed by the `name` property in the `sapHttp.yaml`. Refer to [SAP Content Repository Connection](#sap-http-content-server-connection) above. |  `sapHttp/archivelink-nuxeo` |
 
    ![SAP Customizing: OAC0](/_media/sap_customizing/0001_oac0_create.png>
+   
 4) Save the newly created repository.
 5) Test the connection. 
