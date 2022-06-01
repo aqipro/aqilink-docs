@@ -24,4 +24,4 @@ Example how the content of `storage.yaml` can look like to connect to an Amazon 
   prefix: AL
 ```
 
-> The example use an encrypted password instead of plain text. Refer to [Password Encryption](../reference/password-encryption.md).
+> The example use an encrypted password instead of plain text. Refer to [Password Encryption](/reference/password-encryption.md).

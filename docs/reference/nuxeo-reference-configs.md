@@ -25,4 +25,4 @@ Example how the content of `storage.yaml` can look like to connect to a Nuxeo re
   documentPath: /default-domain/workspaces/sap/sap_documents/SAP-Attachments
 ```
 
-> The example use an encrypted password instead of plain text. Refer to [Password Encryption](../reference/password-encryption.md).
+> The example use an encrypted password instead of plain text. Refer to [Password Encryption](/reference/password-encryption.md).

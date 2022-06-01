@@ -1,20 +1,23 @@
 # Nuxeo - Reference for Feature *Open In SAP Web GUI*
 
-The feature *Open in SAP Web GUI* allows the user in Nuxeo to open the document related SAP Business Object with a single click from the Nuxeo web application. It calls the SAP Web GUI and after the user has logged into the SAP system, he will be directly forwarded to the SAP Business Object, opened in the associated transaction. T
+The feature *Open in SAP Web GUI* allows the user in Nuxeo to open the document related SAP Business Object with a single click from the Nuxeo web application. It calls the SAP Web GUI and after the user has logged into the SAP system, he will be directly forwarded to the SAP Business Object, opened in its associated transaction.
 
 ### Requirements
 1) The metadata replication is enabled and facet `SAP Replicated Details` is available on the document.
-2) The feature has been enabled and is maintined for the repository (see below).
+2) The feature has been enabled for the repository.
+3) The SAP transaction is maintained in the properties.
 
 ## Administration
-How the feature can be enabled and maintained by the Nuxeo administrator. 
-To enable the feature, navigate to the desired SAP Content Repository file in Nuxeo which ends with `.repo`.
+The feature can be enabled or disabled on each available SAP Content Repository file in Nuxeo which means, it is either enabled or disabled for all documents of this repository. The SAP Content Repository files are located under the related [SAP HTTP-Content Server Connection](/configuration/aqilink/#sap-http-content-server-connection) folder of the `aqilink` administration path in Nuxeo. 
+The file extension is **`.repo`** and is located under the specified `adminPath` (in configuration file `storage.yaml`, refer to [Storage Connection for Hyland Nuxeo Repository](/configuration/aqilink/#hyland-nuxeo-repository)) in the repository.
 
-Available settings on the repository file to maintain the feature:
+![Open in SAP](../_media/reference/open_in_sap_repo_0.png)
+
+Edit the properties of the `.repo` file to maintain the following settings for the feature:
 
 | Property      | Description |
 | ----------- | ----------- |
-| ``WebClient Enabled`` |  Either check the option to enable or disable the feature. Default: *Not enabled* | 
+| ``WebClient Enabled`` |  Either check the option to enable or disable the feature. Default: *Not enabled*<br/>Note: This setting is valid for all documents of this repository. | 
 | ``WebClient URL`` |  The URL pointing to the SAP WebClient. Make sure to replace the placeholder *sap-ip-address* with the IP or hostname of the SAP server.   |  
 | ``WebClient Client`` |  The Client used as preselection for the user login.   |  
 | ``WebClient Language`` | The lanugage used as preselection for the user login.   |  
@@ -23,8 +26,28 @@ Available settings on the repository file to maintain the feature:
 
 ![Open in SAP](../_media/reference/open_in_sap_repo_1.png)
 
+### Reference for URL Parameter Mapping
+The following SAP Objects are currently supported by default:
+
+| SAP Object Type | SAP Transaction | Description | URL Parameter attached to SAP WebGUI |
+| ----------- | ----------- | ----------- | ----------- |
+| BKPF | `FB03` | Accounting Document Header | `?~transaction=FB03%20RF05L-BELNR=%SAP_OBJECT_ID%;RF05L-BUKRS=%SAP_COMPANY_CODE%;RF05L-GJAHR=%SAP_FISCAL_YEAR%&~okcode=/00` |
+| BUS2012| `ME23` | Purchase Order | `?~transaction=ME23%20RM06E-BSTNR=%SAP_OBJECT_ID%&~okcode=/00`|
+| BUS2105| `ME53` | Purchse Requisition | `?~transaction=ME53%20EBAN-BANFN=%SAP_OBJECT_ID%&~okcode=/00`|
+| BUS2032 | `VA03` | Sales Order | `?~transaction=VA03%%20VBAK-VBELN=%s&~okcode=/00` |
+
 ## Usage
 
-How the feature works for the user in Nuxeo.
+Once the feature is enabled, this is the user experience in Nuxeo. 
 
-TBD
+1) The user navigates to a document, stored from SAP. 
+2) A new action command is available on the Document Actions menu.
+   1)  He must make sure that metadata from SAP has been already replicated and the facet *SAP Replicated Details* is available on the document.
+![UX Open in SAP Nuxeo](../_media/reference/open_in_sap_user_0.png)
+
+3) The user click on the action command "Open in SAP".
+4) The SAP WebGUI opens in a new browser window.
+5) The user must enter his SAP credentials to login to the SAP system.
+6) He will be immediately redirected to the SAP Business Object associated with the current document in Nuxeo. 
+![UX Open in SAP](../_media/reference/open_in_sap_user_1.png)
+7) The user can now continue his work on the SAP Business Object.
