@@ -1,6 +1,6 @@
-# Configure **`aqilink`**
+# Configure *Document Exchange*
 
-This chapter explain the configuration options for **`aqilink`** to connect SAP with a content repository. The main configuration is split into three different [YAML files](https://yaml.org) to offer maximum flexibility.  
+This chapter explain the configuration options for the *Document Exchange* (**`aqilink`**) module to connect SAP with a content repository. The main configuration is split into two different [YAML files](https://yaml.org) to offer maximum flexibility.  
 
 | File      | Description | 
 | ----------- | ----------- |

@@ -24,6 +24,6 @@ The below table lists all available configuration files and its purpose. As expl
 | ``tasks/myTask1.yaml``, <br/>``tasks/myTask2.yaml``, <br/> ``tasks/myTaskx.yaml`` | Defines the action based on the connection. For each action, a separate file has to be created with a unique name within the folder ``tasks/``. This file name itself can be set to any name but should not contain special characters. These are the most important files for the connection **from** the repository **to** the SAP System and requires the most attention during the configuration. <br> |
 
 ## High-level File Association & Flow <!-- {docsify-ignore} -->
-To help understand how the files above are related to each other in a more visual way, refer to the following image . With this in mind, the next step would be to start with the configuration of either [**`aqilink`**](/configuration/aqilink/) or/and [**`aqishare`**](/configuration/aqishare/).
+To help understand how the files above are related to each other in a more visual way, refer to the following image . With this in mind, the next step would be to start with the configuration of either [*Document Exchange*](/configuration/aqilink/) or/and [*Data Exchange*](/configuration/aqishare/).
 
 ![File Association](../../_media/aqilink_high-level-architecture-files.png)
