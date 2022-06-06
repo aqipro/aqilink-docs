@@ -12,5 +12,5 @@
   * [FAQ](aqilink/faq.md)
   
 * Configuration
-  * [aqilink](configuration/aqilink/)
-  * [aqishare](configuration/aqishare/)
+  * [Document Exchange](configuration/aqilink/)
+  * [Data Exchange](configuration/aqishare/)
