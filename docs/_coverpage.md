@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-<img src="_media/logo_aqilink.png" width="350"/>
+<img src="_media/logo_aqilink.png" width="350"/> <span title="Latest Version">v22.0</span>
 
 # Documentation Portal
 
