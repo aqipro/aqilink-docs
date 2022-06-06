@@ -14,3 +14,5 @@
 * Configuration
   * [Document Exchange](configuration/aqilink/)
   * [Data Exchange](configuration/aqishare/)
+
+* [Release: **v22.0**](/release.md "Release Notes")
