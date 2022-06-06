@@ -10,7 +10,11 @@ To successfully run the SAP certified integration **`aqilink`**, the following r
 
 * Valid License key
 * Docker
-* 
+* Internet connection
+* [Container orchestration tool like Docker Swarm or Kubernetes]
+
+### Sizing
+TBD
 
 ## SAP
 
