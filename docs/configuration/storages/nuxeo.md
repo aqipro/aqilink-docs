@@ -1,6 +1,8 @@
 # Step-by-step: Connect SAP with Nuxeo
 Read this chapter to learn how to connect Nuxeo  via **`aqilink`** as SAP Content Repository. Make sure you're familiar with the configuration for [SAP Content Repository Connection](/installation/#sap-http-content-server-connection) and [Storage Connection](/configuration/aqishare/#storage-connections) before, as this is a prerequisite.
 
+> Check the [related Playlist on our Youtube channel](https://youtube.com/playlist?list=PLe5MRttD46M34mEYBGFvEKZVdQWER3QIW) to watch the steps below as video tutorial. 
+
 ## Create SAP Content Repository
 Follow these steps to create a new SAP Content Repository connected to **`aqilink`**.
 
