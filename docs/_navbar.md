@@ -9,10 +9,12 @@
 
 * Installation
   * [Installation](installation/)
-  * [FAQ](aqilink/faq.md)
+  * [FAQ](faq.md)
   
 * Configuration
   * [Document Exchange](configuration/aqilink/)
   * [Data Exchange](configuration/aqishare/)
 
-* [Release: **v22.0**](/release.md "Release Notes")
+* [Release: **v22.0**](release.md "Release Notes")
+  * [Release Information](release.md)
+  * [Product Support Status](release.md#product-support-status)

@@ -1,27 +1,21 @@
 # Release Information
-Information about the latest **`aqilink`** release as well as the product support status.
+Information about the latest **`aqilink`** release as well as the product support status. Refer to the [Download section](/installation/app-download.md) to get the latest version.
 
-## Release Notes Latest Version
+## Release Notes `aqilink 22.0`
 
-> Release Date of `aqilink 22.0`: May, 25th, 2022
+> Release Date: May, 25<sup>th</sup>, 2022
 
 ### Features
-Newly introduced features and/or enhancements in this release:
-* SAP-certified integration
+New features / enhancements in this release:
+* Received status *SAP-certified integration* from SAP ICC.
 
 ### Issues fixed
 The following issues has been fixed in this release:
 
 | Issue      | Type | Description |
 | ----------- | ----------- |----------- |
-| #57 | Security | Enable certificate |
-
-<hr/>
-
-### Release Notes v22.0.1
-| Issue      | Type | Description |
-| ----------- | ----------- |----------- |
-| #57 | Security | Enable certificate |
+| #56 | Security | Encrypt passwords in configuration files |
+| #46 | Security | Add queue for Job handling |
 
 
 ## Product Support Status
