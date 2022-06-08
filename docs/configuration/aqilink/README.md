@@ -29,7 +29,7 @@ The `storage.yaml` defines the connection parameter to the related repositories.
 > Depending on the **`aqilink`** license there can be as many definitions as required in this file.
 
 ### Hyland Nuxeo Repository
-The below table lists all available parameters for the `storage.yaml` to establish a connection to a Hyland Nuxeo repository. For example configurations refer to the [related part in the Reference section](../reference/nuxeo-reference-configs#example-configuration-for-storageyaml). 
+The below table lists all available parameters for the `storage.yaml` to establish a connection to a Hyland Nuxeo repository. For example configurations refer to the [related part in the Reference section](../reference/nuxeo-reference-configs#example-configuration-for-storageyaml) or see [Step-by-step: Connect SAP with Nuxeo](/configuration/storages/nuxeo).
 
 | Parameter      | Mandatory | Description | Example |
 | ----------- | ----------- |----------- | ----------- | 
@@ -44,13 +44,13 @@ The below table lists all available parameters for the `storage.yaml` to establi
 
 
 ### Amazon S3 Bucket
-The below table lists all available parameters for the `storage.yaml` to establish a connection to an Amazon S3 Bucket. For example configurations refer to the [related part in the Reference section](../reference/s3-reference-configs#example-configuration-for-storageyaml). 
+The below table lists all available parameters for the `storage.yaml` to establish a connection to an Amazon S3 Bucket. For example configurations refer to the [related part in the Reference section](../reference/s3-reference-configs#example-configuration-for-storageyaml) or see [Step-by-step: Connect SAP with S3](/configuration/storages/s3).
 
 | Parameter      | Mandatory | Description | Example |
 | ----------- | ----------- |----------- | ----------- | 
 | ``name`` | Yes | Must match the exact name as provided for parameter `storage` in the [SAP Content Server Connection](#sap-http-content-server-connection) (`sapHttp.yaml`).       |  `s3-archive` |
 | ``type`` | Yes | The type of the repository that should be connected. As the connection routes to an Amazon S3 bucket, the value must be `s3`. |  `s3` |
-| ``endPoint`` | Yes | The host name or IP address of the Amazon S3 instance.      | `https://s3.amazonaws.com` |
+| ``endPoint`` | Yes | The host name or IP address to access the bucket, refer to [Methods for accessing a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html) in the official AWS S3 documentation.      | `https://s3.myregion.amazonaws.com` |
 | ``port`` | Yes | TCP/IP port number of the `endPoint` above.       | `9000` |
 | ``useSSL`` | Yes | Set to `true` to use HTTPS instead of HTTP. Default is `true`.       | `true` |
 | ``accessKey`` | Yes| The key to uniquely identify the Amazon S3 account.      |  |
