@@ -9,12 +9,9 @@ Below are the environment/software prerequisites to successfully run **`aqilink`
 To successfully run the SAP certified integration **`aqilink`**, the following requirements must be fulfilled:
 
 * Valid License key
-* Docker
+* Container Runtime
 * Internet connection
-* [Container orchestration tool like Docker Swarm or Kubernetes]
 
-### Sizing
-TBD
 
 ## SAP
 
@@ -34,6 +31,7 @@ TBD
 * Nuxeo LTS 2019 (or up to latest)
 * Separate Nuxeo user only used for the SAP integration (recommended) 
 
-## Amazon S3
+## AWS S3
 
-* Amazon S3 account
+* AWS account
+* Access / Secret key
