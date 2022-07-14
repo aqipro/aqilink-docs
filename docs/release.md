@@ -19,7 +19,9 @@ The following issues has been fixed in this release:
 
 
 ## Product Support Status
- 
-| Version      | Support Status | Nuxeo Versions | Amazon S3 Buckets | End of Maintenance |
+
+This tables shows the support status of the **`aqilink`** releases.
+
+| Release      | Supported Nuxeo Versions | Supported SAP Versions | Support Status | End of Maintenance |
 | ----------- | ----------- |----------- |----------- |----------- |
-| 22.0 | Full Support | LTS2019, LTS2021 | 2022.123 |  May 2025 |
+| **`22.0`** | LTS2019, LTS2021 | SAP ECC6, S/4HANA 2020, S/4HANA 2021 | _Full Support_ | May 2025 |
