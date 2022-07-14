@@ -26,4 +26,4 @@ The below table lists all available configuration files and its purpose. As expl
 ## High-level File Association & Flow <!-- {docsify-ignore} -->
 To help understand how the files above are related to each other in a more visual way, refer to the following image . With this in mind, the next step would be to start with the configuration of either [*Document Exchange*](/configuration/aqilink/) or/and [*Data Exchange*](/configuration/aqishare/).
 
-![File Association](../../_media/aqilink_high-level-architecture-files.png)
+![File Association](../_media/aqilink_high-level-architecture-files.png)
