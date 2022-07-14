@@ -7,7 +7,8 @@ This chapter explain the configuration options for the *Document Exchange* (**`a
 | ``sapHttp.yaml`` | Defines all HTTP inbound connections from the SAP system and maps it to the related section in the `storage.yaml`.  |
 | ``storage.yaml`` | Defines the connection parameters to connect to the reqired repository. |
 
-The following image shows the relation of the values within the configuration files.
+The next image demonstrates how both files (in particular the property values inside) are related to each other.
+It also shows the main mapping point between the Content Repository configuration in SAP and the `sapHttp.yaml`. 
 
 ![aqilink Value Mapping](../../_media/aqilink_value_mapping_files.png)
 
