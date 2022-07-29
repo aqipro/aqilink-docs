@@ -2,7 +2,7 @@
 
 * Get started
 
-  * [About](#get-started)
+  * [Get started](https://aqipro.github.io/aqilink-docs/#?id=get-started)
   * [Request Trial Version](https://try.aqipro.com)
   * [Visit Website](https://aqipro.com)
   * [Contact Us](https://aqipro.com/contact)
