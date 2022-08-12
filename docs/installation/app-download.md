@@ -21,12 +21,19 @@ While the most important download will be for sure the `aqilink` Docker image, y
 | `aqilink-encryptor` | `https://delivery.aqipro.com/api/download/aqilink-encryptor/<YOUR-LICENSE-KEY>`| The encryptor tool to store passwords securly. Refer to [Password Encryption](/reference/password-encryption.md). | 
 | `aqilink-nuxeo` | `https://delivery.aqipro.com/api/download/aqilink-nuxeo/<YOUR-LICENSE-KEY>` | This package contains the required `aqilink` Data Model and also UI addons to be deployed on the Nuxeo server. | 
 | `aqilink-templates` | `https://delivery.aqipro.com/api/download/aqilink-templates/<YOUR-LICENSE-KEY>` | Download a package with predefined templates used for [Tasks](/configuration/aqishare/tasks.md) to replicate metadata. |
+
 ## Docker Load
 To load the image from the downloaded *tar.gz* file use the Docker [load command](https://docs.docker.com/engine/reference/commandline/load/).
 
 ```
 docker load -i aqilink_<VERSION>.tar.gz
 ```
+or use as alternative:
+```
+docker load < aqilink_<VERSION>.tar.gz
+```
+
+
 
 ## Docker Start
 Start the container from the image using Docker [run command](https://docs.docker.com/engine/reference/commandline/run/).
