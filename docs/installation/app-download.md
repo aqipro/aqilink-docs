@@ -22,32 +22,8 @@ While the most important download will be for sure the `aqilink` Docker image, y
 | `aqilink-nuxeo` | `https://delivery.aqipro.com/api/download/aqilink-nuxeo/<YOUR-LICENSE-KEY>` | This package contains the required `aqilink` Data Model and also UI addons to be deployed on the Nuxeo server. | 
 | `aqilink-templates` | `https://delivery.aqipro.com/api/download/aqilink-templates/<YOUR-LICENSE-KEY>` | Download a package with predefined templates used for [Tasks](/configuration/aqishare/tasks.md) to replicate metadata. |
 
-## Docker Load
-To load the image from the downloaded *tar.gz* file use the Docker [load command](https://docs.docker.com/engine/reference/commandline/load/).
 
-```
-docker load -i aqilink_<VERSION>.tar.gz
-```
-or use as alternative:
-```
-docker load < aqilink_<VERSION>.tar.gz
-```
+## SAP NetWeaver RFC SDK
+The [SAP NetWeaver Remote Function Call (RFC) Software Development Kit (SDK)](https://support.sap.com/en/product/connectors/nwrfcsdk.html) is required to use the [Data Exchange](/configuration/aqishare) capabilities of **`aqilink`**. You must download the *SAP NetWeaver RFC SDK* for your desired target platform and provide it to the **`aqilink`** image or map it to the running container. The *SAP NetWeaver RFC SDK* is only available from within the SAP support portal. It cannot be shipped with **`aqilink`** or as a separate download, as this is not allowed by the SAP terms.
 
-
-
-## Docker Start
-Start the container from the image using Docker [run command](https://docs.docker.com/engine/reference/commandline/run/).
-Always specify the Tag for the `run` command which is the **`aqilink`** version number. To find the available Tag use: 
-
-```
-docker image ls
-   REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
-   ...             ...       ...            ...            ...
-   aqilink         <VERSION> ac10911ff112   42 hours ago   425MB
-```
-Start the container based on the Tag above:
-```
-docker run aqilink:<VERSION>
-```
-
-Congratulations. You have successfully downloaded and installed **`aqilink`**, it's time to learn all about the configuration options it offers to make it fit to your company. Please read the next chapter.
+> You'll need to have a valid SAP S-User Id available to login and therefore download the SDK.

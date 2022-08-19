@@ -11,7 +11,7 @@ To successfully run the SAP certified integration **`aqilink`**, the following r
 * Valid License key
 * Container Runtime
 * Internet connection
-
+* Download [SAP NetWeaver RFC SDK](installation/app-download?id=sap-netweaver-rfc-sdk) to be able to use the [Data Exchange](/configuration/aqishare) capability.
 
 ## SAP
 

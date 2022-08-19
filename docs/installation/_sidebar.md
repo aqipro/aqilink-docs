@@ -5,6 +5,7 @@
   * [Prerequisites](/installation/app-prerequisites.md)
   * [Download](/installation/app-download.md)
   * [Basic App Configuration](/installation/app-configuration.md)
+  * [App Start](/installation/app-start.md)
 * [Configuration](/configuration/ "Configuration")
 * [Reference](/reference/)
 * [FAQ](/faq.md)
