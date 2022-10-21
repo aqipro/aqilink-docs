@@ -9,7 +9,7 @@ We offer the password encrypton tool for various platforms such as Windows, Unix
 
 > The download link for the `aqilink-encryptor` is available in the [Software Download section](/installation/app-download.md#other-related-software)!
 
-Once downloaded, extract the package and continue with the correct executable according your target system.
+Once downloaded, extract the package and continue with the correct executable according your current system architecture.
 
 ![aqilink](../_media/reference/encryptor_download.png)
 
@@ -18,10 +18,10 @@ Once downloaded, extract the package and continue with the correct executable ac
 To encrypt passwords in any of the **`aqilink`** configuration files follow the steps below. It demonstrates the usage on a Windows system. If you platform is Unix or Max, use related commands.
 
 ### Generate key pair 
-Use the following command to create a new private key and public key pair. Both keys are stored in separate files within the given directory. Make sure the given directory exists. 
+Execute the encryptor tool based based on your system architecture to create a new private key and public key pair. Both keys are stored in separate files within the given directory (in the case below `c:\temp\aqilink\keypair`). Make sure the given directory exists.
 
 ```
-.\aqilink-encryptor.exe generate c:\temp\aqilink\keypair
+.\aqilink-encryptor-win-x64.exe generate c:\temp\aqilink\keypair
 ``` 
 
 ### Map public key into container
