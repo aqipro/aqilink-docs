@@ -3,6 +3,13 @@
 ## Troubleshoot `aqilink`
 If you have trouble installing or running `aqilink`, the problem may be related to one of the following.
 
+### aqilink: Cannot decrypt properties with public key
+Right after starting the `aqilink` application the console output contains the error message shown in the image below.
+In this case, double-check whether the passwords (used in the configuration files `storage.yaml` or `sapConnection.yaml`) are encrypted/decrypted using private and public key of the generated keypair.
+Refer to [Password Encryption](/reference/password-encryption).
+
+![Wrong keys](/_media/faq/0004_aqilink_mixedKeypairKeys.png)
+
 ### SAP: Client connection broken
 If you receive a similar message below while pinging the connected repository from the SAP Content Repository administration (t-code: `OAC0`), you may check the `app.yaml` in the `/configs` folder. Make sure to enter the license key.
 
