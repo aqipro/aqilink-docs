@@ -1,14 +1,9 @@
-# *NOTE: This page is still under construction !!*
-
 # Start `aqilink` application
-Having the basic app configuration files from the previous section available, there are multiple ways to bring the files into the image, so it can be used. 
-
-Here are some common ways to start the `aqilink` image with the configuration files:
-
-<!-- https://dantehranian.wordpress.com/2015/03/25/how-should-i-get-application-configuration-into-my-docker-containers/-->
+Having the [basic app configuration](installation/app-configuration.md) files from the previous section available, it's time to start the container based on the downloaded image. This page will show the process using the container runtime [Docker](https://docs.docker.com). If your company uses another container runtime, adapt the steps accordingly.
 
 ## Docker Load
-To load the image from the downloaded *tar.gz* file use the [docker load](https://docs.docker.com/engine/reference/commandline/load/) command.
+Before creating a container from the `aqilink` image, the image must be extracted from the downloaded *tar.gz* file.
+To do so, use the [docker load](https://docs.docker.com/engine/reference/commandline/load/) command.
 
 ```
 docker load -i aqilink_<VERSION>.tar.gz
@@ -25,61 +20,118 @@ Make sure the image is available by checking with the [docker image ls](https://
 docker image ls
    REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
    ...             ...       ...            ...            ...
-   aqilink         <VERSION> ac10911ff112   42 hours ago   425MB
+   aqilink         <VERSION> ac10911ff112   42 hours ago   439MB
 ```
 
-## Docker Start
-Before starting the container from the image the `/configs/` folder (refer to [Basic App Configuration](../installation/app-configuration.md)) with the related configuration files must be present in the running container. There are a couple of options to bring (copy) the folder either into the image or map it to the container. Choose the option that fits best for you. 
-To run the image use the [docker run](https://docs.docker.com/engine/reference/commandline/run/) command and always specify the Tag which is the **`aqilink`** version number.
+## Collect necessary files 
 
+The following steps are necessary as foundation to proceed either with the [Production Mode](#production-mode) or the [Development Mode](#development-mode) part:
 
+1) Create a temporary folder on your machine
+2) Copy the following elements into that folder:
+   - The recently downloaded **``aqilink``** Docker image *aqilink_< VERSION>.tar.gz* 
+   - The `/configs/` folder containing the **``aqilink``** configuration files (refer to [Basic App Configuration](../installation/app-configuration.md))
+   - The folder containing the private and public key pair for password encryption/decryption. Only required if password encryption is used (refer to [Password Encryption](../reference/password-encryption))
+   - The SAP NetWeaver SDK files based on your target system architecture (refer to [SAP NetWeaver RFC SDK](../installation/app-download?id=sap-netweaver-rfc-sdk))
+3) [Production Mode only] Create a new file with name `Dockerfile` inside the folder
 
-### Use volume mapping
+The structure of the temporary folder should now look like:
 
-Start the container based on the Tag above:
-```
-docker run aqilink:<VERSION>
+![Base folder for new custom Docker image](../../_media/installation/folder_structure_custom_docker_image.png)
 
-
-docker run -v /configs:/usr/src/app/configs aqilink:22.0.0
-```
-
-### Copy configuration files into container
-To have the configuration files available inside the container, follwow these steps:
-1) Start the app
-1) Identify the `aqilink` container and remember the &lt;CONTAINER_ID&gt;
-2) Copy files into container using `docker cp`
-3) Start the container again
-
-```
-docker container ls
-docker cp docker cp ./some_file CONTAINER:/work
-docker run aqilink:<VERSION>
-```
-
-## Custom Docker image
-Suggested for any production environment. Create a custom Docker image using a `Dockerfile` based on the latest **`aqilink`** image and copy the `/configs/` folder as well as the [SAP NetWeaver RFC SDK](../installation/app-download?id=sap-netweaver-rfc-sdk) into it. Run the new image.
+## Production Mode
+The usage of any orchestration tool such as Docker Swarm or Kubernetes requires to have all related files inside the image. To fulfill the requirement, a new customer based Docker image has to be created containing the previously maintained `/config/` folder as well as the SAP NetWeaver SDK.
 
 > Make sure to have all settings in the `/configs/` folder correct and working before.
 
+### Create Dockerfile for custom image
+
+To create the custom image copy and paste the following content in the newly created `Dockerfile` and save it. Don't forgett to replace the `<VERSION>` placeholder with the exact version of the current **`aqilink`** Docker image in the temporary folder.
+
 ```
 FROM aqilink:<VERSION>
-COPY /configs ./usr/src/app/configs
-COPY /sap/linux_x64/nwrfcsdk ./usr/local/sap/nwrfcsdk
-COPY /sap/linux_x64/nwrfcsdk.conf ./etc/ld.so.conf.d/nwrfcsdk.conf
+
+ARG SAPNWRFC_HOME='/usr/local/sap/nwrfcsdk'
+ENV SAPNWRFC_HOME=${SAPNWRFC_HOME}
+
+COPY /configs /usr/src/app/configs
+COPY /sap/linux_x64/nwrfcsdk ${SAPNWRFC_HOME}
+COPY /sap/linux_x64/nwrfcsdk.conf /etc/ld.so.conf.d
+
+# Path must match publicKeyPath in app.yaml
+COPY keypair/publicKey.pem /usr/src/app/configs
+
+CMD ["node", "dist/main"]
 ```
 
-Use [Docker build](https://docs.docker.com/engine/reference/commandline/build/) command to create the new image with a customer specific tag:
+### Build custom image
+
+Use [docker build](https://docs.docker.com/engine/reference/commandline/build/) command to create the new image based on the `Dockerfile` above with a custom specific tag. Navigate to the temporary folder with a command-line shell and execute the following command (while `aqilink_custom_image` is the name of the new image):
+
 ```
-docker build . -t "aqilink_customer"
+docker build . -t "aqilink_custom_image"
 ```
 
-## Use docker-compose 
-Using [Docker compose](https://docs.docker.com/compose/) is suggested for DEV environments only. Ramp up **`aqilink`** quickly to test the settings easily.
+Double-check the successful creation with [docker image ls](https://docs.docker.com/engine/reference/commandline/image_ls/) command again. The output after executing both commands should look like:
 
-> [docker-compose](https://docs.docker.com/compose/) must be installed.
+![Build new custom Docker image](../../_media/installation/docker_build_custom_image.png)
 
-Use the following `docker-compose.yml` as template to start the container.
+### Create docker-compose.yaml
+To start the container based on the image, a `docker-compose.yaml` must be created. To do so, create a new file with name `docker-compose.aqilink_custom_image.yaml` and insert the content below. 
+
+> You should consider your Docker and/or Orchestration system (Docker Swarm, Kubernetes, etc.) expert to create the file content the correct way.
+
+**Before starting the container make sure to:** 
+1) change the image name under the *aqilink:* service according the recently created name used for the custom image
+2) change the image name under the *nuxeo* service to the name of the desired Nuxeo image and make sure the port mapping is good and the volume matches. **Note:** The used Nuxeo image must contain the required `aqilink-nuxeo` module (refer to [Other related software](../installation/app-download?id=other-related-software))!
+
+```
+version: '3.9'
+
+services:
+  aqilink:
+    image: aqilink_custom_image:latest
+    ports:
+      - 3000:3000
+    depends_on:
+      - redis
+    networks:
+      - sapnet
+  nuxeo:
+    image: nuxeo-lts2021-with-aqilink-nuxeo-module:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - data:/var/lib/nuxeo
+    networks:
+      - sapnet
+  redis:
+    image: redis
+    networks:
+      - sapnet
+networks:
+  sapnet:
+volumes:
+  data:
+    external: true
+```
+
+### Start container with docker-compose
+Finally, start the container based on the `YAML` above using the `docker-compose` command:
+
+```
+docker-compose -f docker-compose.aqilink_custom_image.yaml up -d
+```
+
+### Start container with Docker Swarm
+
+You can use the created `YAML` file also to go ahead with Docker Swarm. 
+
+
+## Development Mode
+To ramp up **`aqilink`** quickly and to test different configuration options and settings easily, we recommend to use the following `docker-compose.yaml` file along with [docker-compose](https://docs.docker.com/compose/) command as template. This should only be used in development systems.
+
+Create a `docker-compose.yaml` within the temporary folder with the following content:
 ```
 version: '3.7'
 
@@ -89,12 +141,21 @@ services:
     volumes:
       - ./sap/linux_x64/nwrfcsdk:/usr/local/sap/nwrfcsdk
       - ./sap/linux_x64/nwrfcsdk.conf:/etc/ld.so.conf.d/nwrfcsdk.conf
+      - ./configs:/usr/src/app/configs
     environment:
       SAPNWRFC_HOME: '/usr/local/sap/nwrfcsdk'
     ports:
       - 3000:3000
     depends_on:
       - redis
+    networks:
+      - sapnet
+  nuxeo:
+    image: nuxeo-lts2021-with-aqilink-nuxeo-module:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - data:/var/lib/nuxeo
     networks:
       - sapnet
   redis:
