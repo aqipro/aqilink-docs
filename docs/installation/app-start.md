@@ -133,7 +133,7 @@ To ramp up **`aqilink`** quickly and to test different configuration options and
 
 Create a `docker-compose.yaml` within the temporary folder with the following content:
 ```
-version: '3.7'
+version: '3.9'
 
 services:
   main:
