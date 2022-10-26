@@ -8,8 +8,8 @@ Tasks are finally the actions, that are executed against the SAP system and that
 | Property      | Mandatory | Type | Description |
 | ----------- | ----------- |----------- | ----------- | 
 | `enabled` | No | Boolean | If set to `false`, the task is disabled and will not processed. Default is `true`.  | 
-| `storage` | Yes | String | The connected storage system to be used. For allowed values refer to section [Storage Connections](../configuration/aqilink/#storage-connections).  | 
-| `sap` | Yes | String | The SAP system to which the task should connect to. Must match the value of `name` property in  [SAP Connection Properties](../configuration/aqishare/sap-connection.md). | 
+| `storage` | Yes | String | The connected storage system to be used. For allowed values refer to section [Storage Connections](/configuration/aqilink/#storage-connections).  | 
+| `sap` | Yes | String | The SAP system to which the task should connect to. Must match the value of `name` property in  [SAP Connection Properties](/configuration/aqishare/sap-connection.md). | 
 | `trigger` | Yes | Object | Defines the execution of the task either by a CRON expression or an access key to trigger the task manually.<br/>[Refer below to Property `trigger` specification](#property-trigger). | 
 | `query` | Yes | Object | Defines the query which will be executed in the repository to retrieve data that should be processed.<br/> [Refer below to Property `query` specification](#property-query).|
 | `mapping` | Yes | Object | Specifies the SAP function module or Rest service and define the property mapping which should be passed to SAP and the property mapping of the result to the properties of the repository.<br/> [Refer below to Property `mapping` specification](#property-mapping). |
@@ -60,7 +60,7 @@ Support for Nuxeo only - refer to [Nuxeo Documentation | NXQL](https://doc.nuxeo
 
 > Do not forget to specify an exclusion criterion for the documents in the `query`!
 
-> If you use multiple `YAML` files with same logic but for different [SAP Content Repository Connections](../configuration/aqilink/#sap-http-content-server-connection), make sure to include and exclude the values of the SAP Repository Connections in the files according your needs. Query excerpt to exclude documents arrived via SAP Content Repository Connection `attachments-mySAP`:
+> If you use multiple `YAML` files with same logic but for different [SAP Content Repository Connections]/configuration/aqilink/#sap-http-content-server-connection), make sure to include and exclude the values of the SAP Repository Connections in the files according your needs. Query excerpt to exclude documents arrived via SAP Content Repository Connection `attachments-mySAP`:
 
 ```
 ... AND sapHttpContent:source <> 'attachments-mySAP'
