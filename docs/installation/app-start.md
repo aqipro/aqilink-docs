@@ -30,14 +30,14 @@ The following steps are necessary as foundation to proceed either with the [Prod
 1) Create a temporary folder on your machine
 2) Copy the following elements into that folder:
    - The recently downloaded **``aqilink``** Docker image *aqilink_< VERSION>.tar.gz* 
-   - The `/configs/` folder containing the **``aqilink``** configuration files (refer to [Basic App Configuration](../installation/app-configuration.md))
-   - The folder containing the private and public key pair for password encryption/decryption. Only required if password encryption is used (refer to [Password Encryption](../reference/password-encryption))
-   - The SAP NetWeaver SDK files based on your target system architecture (refer to [SAP NetWeaver RFC SDK](../installation/app-download?id=sap-netweaver-rfc-sdk))
+   - The `/configs/` folder containing the **``aqilink``** configuration files (refer to [Basic App Configuration](/installation/app-configuration.md))
+   - The folder containing the private and public key pair for password encryption/decryption. Only required if password encryption is used (refer to [Password Encryption](/reference/password-encryption))
+   - The SAP NetWeaver SDK files based on your target system architecture (refer to [SAP NetWeaver RFC SDK](/installation/app-download?id=sap-netweaver-rfc-sdk))
 3) [Production Mode only] Create a new file with name `Dockerfile` inside the folder
 
 The structure of the temporary folder should now look like:
 
-![Base folder for new custom Docker image](../../_media/installation/folder_structure_custom_docker_image.png)
+![Base folder for new custom Docker image](/_media/installation/folder_structure_custom_docker_image.png)
 
 ## Production Mode
 The usage of any orchestration tool such as Docker Swarm or Kubernetes requires to have all related files inside the image. To fulfill the requirement, a new customer based Docker image has to be created containing the previously maintained `/config/` folder as well as the SAP NetWeaver SDK.
@@ -74,7 +74,7 @@ docker build . -t "aqilink_custom_image"
 
 Double-check the successful creation with [docker image ls](https://docs.docker.com/engine/reference/commandline/image_ls/) command again. The output after executing both commands should look like:
 
-![Build new custom Docker image](../../_media/installation/docker_build_custom_image.png)
+![Build new custom Docker image](/_media/installation/docker_build_custom_image.png)
 
 ### Create docker-compose.yaml
 To start the container based on the image, a `docker-compose.yaml` must be created. To do so, create a new file with name `docker-compose.aqilink_custom_image.yaml` and insert the content below. 
@@ -83,7 +83,7 @@ To start the container based on the image, a `docker-compose.yaml` must be creat
 
 **Before starting the container make sure to:** 
 1) change the image name under the *aqilink:* service according the recently created name used for the custom image
-2) change the image name under the *nuxeo* service to the name of the desired Nuxeo image and make sure the port mapping is good and the volume matches. **Note:** The used Nuxeo image must contain the required `aqilink-nuxeo` module (refer to [Other related software](../installation/app-download?id=other-related-software))!
+2) change the image name under the *nuxeo* service to the name of the desired Nuxeo image and make sure the port mapping is good and the volume matches. **Note:** The used Nuxeo image must contain the required `aqilink-nuxeo` module (refer to [Other related software](/installation/app-download?id=other-related-software))!
 
 ```
 version: '3.9'
