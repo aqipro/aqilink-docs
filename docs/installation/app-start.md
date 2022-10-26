@@ -37,7 +37,7 @@ The following steps are necessary as foundation to proceed either with the [Prod
 
 The structure of the temporary folder should now look like:
 
-![Base folder for new custom Docker image](/_media/installation/folder_structure_custom_docker_image.png)
+![Base folder for new custom Docker image](../_media/installation/folder_structure_custom_docker_image.png)
 
 ## Production Mode
 The usage of any orchestration tool such as Docker Swarm or Kubernetes requires to have all related files inside the image. To fulfill the requirement, a new customer based Docker image has to be created containing the previously maintained `/config/` folder as well as the SAP NetWeaver SDK.
@@ -74,7 +74,7 @@ docker build . -t "aqilink_custom_image"
 
 Double-check the successful creation with [docker image ls](https://docs.docker.com/engine/reference/commandline/image_ls/) command again. The output after executing both commands should look like:
 
-![Build new custom Docker image](/_media/installation/docker_build_custom_image.png)
+![Build new custom Docker image](../_media/installation/docker_build_custom_image.png)
 
 ### Create docker-compose.yaml
 To start the container based on the image, a `docker-compose.yaml` must be created. To do so, create a new file with name `docker-compose.aqilink_custom_image.yaml` and insert the content below. 
