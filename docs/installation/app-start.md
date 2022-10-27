@@ -149,6 +149,7 @@ services:
       - redis
     networks:
       - sapnet
+    command: sh -c "/sbin/ldconfig && node dist/main"
   nuxeo:
     image: nuxeo-lts2021-with-aqilink-module:latest
     ports:

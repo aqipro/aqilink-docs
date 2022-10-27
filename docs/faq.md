@@ -11,6 +11,18 @@ Refer to [Password Encryption](/reference/password-encryption) and [Basic App Co
 
 ![Wrong keys](/_media/faq/0004_aqilink_mixedKeypairKeys.png)
 
+### aqilink: Could not open the ICU common library / LD_LIBRARY_PATH
+This error happens if a [Task](/configuration/aqishare/tasks) is executed which tries to connect to the related SAP system via RFC using the native libraries of the SAP NetWeaver SDK. The result of the error is a crash of the container and the cause is related due to the missing assignment of the SAP native RFC libraries during application start.
+
+> This error should only occur if starting the container through `docker-compose.yaml` (refer to [Development Mode](/installation/app-start.md#development-mode)).
+
+Check in your `docker-compose.yaml` whether for service *aqilink* the following command has been provided.
+The imporant assignment is the `/sbin/ldconfig` part before starting the app: 
+ ```
+     command: sh -c "/sbin/ldconfig && node dist/main"
+ ```
+![Mapping to native SAP libs missing](/_media/faq/0005_aqilink_ldconfig_missin_dev-mode.png)
+ 
 ### SAP: Client connection broken
 If you receive a similar message below while pinging the connected repository from the SAP Content Repository administration (t-code: `OAC0`), you may check the `app.yaml` in the `/configs` folder. Make sure to enter the license key.
 
