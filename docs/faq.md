@@ -1,6 +1,6 @@
 ## Frequently Asked Questions
 
-## Troubleshoot `aqilink`
+## Troubleshooting
 If you have trouble installing or running **`aqilink`**, the problem may be related to one of the following.
 
 ### aqilink: Cannot decrypt properties with public key
