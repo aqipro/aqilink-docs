@@ -24,14 +24,18 @@ The most important setting to be maintained in the `app.yaml` is the license key
 license: <ENTER-LICENSE-KEY>
 ```
 
-## Queue Monitor
-To provide monitoring of the [Tasks](../configuration/aqishare/tasks.md), the [Bull Queue](https://optimalbits.github.io/bull/) from OptimalBits is used. This queue should only be enabled for debugging, therefore, by default the Bull Queue monitor is disabled. The related property in the `app.yaml` is `queueMonitorEnabled`.
+## Queue monitoring
+To manage the [Tasks](/configuration/aqishare/tasks.md) of **`aqilink`** the [Bull Queue](https://optimalbits.github.io/bull/) is implemented. As default Web UI to manage queue items, the [bull-monitor](https://github.com/s-r-x/bull-monitor) is available - which is disabled by default. The reason for that is, once the Web UI is available the queue items can be accessed without any authentication. This means not only viewing the items but also the creation of new or the manipulation of existing queue entries.
+
+To enable the Web UI anyway, the property `queueMonitorEnabled` must be present in the `app.yaml` and set to value `TRUE`.
 
 ```
-queueMonitorEnabled: <TRUE-or-FALSE>
+queueMonitorEnabled: true
 ```
 
-> If `queueMonitorEnabled` is enabled, the Web UI is open to public. Everyone who knows the IP-address and the port can access it. There is no further authentication. We do not recommend this setting for production environments.
+> With this setting, the Web UI is open to public and can be accessed through http://localhost:3000/queues from everone who knows the IP-address and the port without any further authentication. 
+
+> We highly recommend to disable the Web UI on any production environments! It's intended for debugging purposes in development systems only.
 
 ### Redis Database
 As the Bull Queue is based on the open source database [Redis](https://redis.io), there are many more settings regarding the database configuration available. `aqilink` supports all, because it just pass the properties 1:1 to Redis. Check [ioredis](https://github.com/luin/ioredis/blob/v4/API.md) for a full list of available parameter.
@@ -60,7 +64,7 @@ This is an example configuration with the most relevant properties explained abo
 
 ```
 license: 12345-67890-09876-54321
-queueMonitorEnabled: true
+queueMonitorEnabled: false
 redis:
   host: redis
   port: 6379
