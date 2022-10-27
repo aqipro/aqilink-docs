@@ -1,7 +1,7 @@
 # Basic `aqilink` App Configuration
 Some basic **`aqilink`** app related configuration options are stored in a file called `app.yaml`. This file should be created in a `/configs/` directory. The `/configs/` directory in turn must be provided to the **`aqilink`** Docker image or has to be mapped into the running container. 
 
-At a glance: Configuration files and structure. For the other required files besides the `app.yaml` check the [Configuration](../configuration/) section.
+At a glance: Configuration files and structure. For the other required files besides the `app.yaml` check the [Configuration](/configuration/) section.
 ```
 /configs/
     |
