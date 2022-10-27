@@ -27,26 +27,28 @@ docker image ls
 
 The following steps are necessary as foundation to proceed either with the [Production Mode](#production-mode) or the [Development Mode](#development-mode) part:
 
-1) Create a temporary folder on your machine
-2) Copy the following elements into that folder:
+- Create a new folder on your machine and copy the following elements into it:
    - The recently downloaded **``aqilink``** Docker image *aqilink_< VERSION>.tar.gz* 
    - The `/configs/` folder containing the **``aqilink``** configuration files (refer to [Basic App Configuration](/installation/app-configuration.md))
    - The folder containing the private and public key pair for password encryption/decryption. Only required if password encryption is used (refer to [Password Encryption](/reference/password-encryption))
    - The SAP NetWeaver SDK files based on your target system architecture (refer to [SAP NetWeaver RFC SDK](/installation/app-download?id=sap-netweaver-rfc-sdk))
-3) [Production Mode only] Create a new file with name `Dockerfile` inside the folder
+- *Production Mode only:* Create a new file with name `Dockerfile` inside the folder
 
-The structure of the temporary folder should now look like:
+The structure of the folder should now look like:
 
 ![Base folder for new custom Docker image](../_media/installation/folder_structure_custom_docker_image.png)
 
 ## Production Mode
-The usage of any orchestration tool such as Docker Swarm or Kubernetes requires to have all related files inside the image. To fulfill the requirement, a new customer based Docker image has to be created containing the previously maintained `/config/` folder as well as the SAP NetWeaver SDK.
+The usage of any orchestration tool such as Docker Swarm or Kubernetes requires to have all related files inside the image. To fulfill this requirement, a new custom based Docker image has to be created containing the previously maintained `/config/` folder as well as the SAP NetWeaver SDK.
 
-> Make sure to have all settings in the `/configs/` folder correct and working before.
+> Make sure that all settings in the `/configs/` folder are correct.
 
 ### Create Dockerfile for custom image
 
-To create the custom image copy and paste the following content in the newly created `Dockerfile` and save it. Don't forgett to replace the `<VERSION>` placeholder with the exact version of the current **`aqilink`** Docker image in the temporary folder.
+If not yet done, create a file with name `Dockerfile` in the newly created folder (see step above) and copy the below content into it:
+
+ - Replace the `<VERSION>` placeholder with the version of the **`aqilink`** Docker image in the current folder.
+ - Make sure that the target path of the last COPY command below match the path in parameter `publicKeyPath` of the `app.yaml` file in the `/configs` folder.
 
 ```
 FROM aqilink:<VERSION>
@@ -58,7 +60,7 @@ COPY /configs /usr/src/app/configs
 COPY /sap/linux_x64/nwrfcsdk ${SAPNWRFC_HOME}
 COPY /sap/linux_x64/nwrfcsdk.conf /etc/ld.so.conf.d
 
-# Path must match publicKeyPath in app.yaml
+#Target path of COPY command must match publicKeyPath in /configs/app.yaml
 COPY keypair/publicKey.pem /usr/src/app/configs
 
 CMD ["node", "dist/main"]
@@ -79,7 +81,7 @@ Double-check the successful creation with [docker image ls](https://docs.docker.
 ### Create docker-compose.yaml
 To start the container based on the image, a `docker-compose.yaml` must be created. To do so, create a new file with name `docker-compose.aqilink_custom_image.yaml` and insert the content below. 
 
-> You should consider your Docker and/or Orchestration system (Docker Swarm, Kubernetes, etc.) expert to create the file content the correct way.
+> Consult your Docker and/or Orchestration system (Docker Swarm, Kubernetes, etc.) expert to create the file content the correct way.
 
 **Before starting the container make sure to:** 
 1) change the image name under the *aqilink:* service according the recently created name used for the custom image
@@ -131,7 +133,7 @@ You can use the created `YAML` file also to go ahead with Docker Swarm.
 ## Development Mode
 To ramp up **`aqilink`** quickly and to test different configuration options and settings easily, we recommend to use the following `docker-compose.yaml` file along with [docker-compose](https://docs.docker.com/compose/) command as template. This should only be used in development systems.
 
-Create a `docker-compose.yaml` within the temporary folder with the following content:
+Create a `docker-compose.yaml` within the new folder with the following content:
 ```
 version: '3.9'
 
