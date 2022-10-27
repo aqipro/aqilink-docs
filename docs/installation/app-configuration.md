@@ -46,7 +46,7 @@ Here are just some most important properties to drive the Redis behaviour:
 | ``db`` | No | The number of the database to be used. Default: `0`.   |  
 | ``password`` | No | Password to login to the databse.   |  
 
-### Password Encryption
+## Password Encryption
 The usage of encrypted passwords in the configuration files requires the specification of the parameter `publicKeyPath` which must specify the path inside the app to the public key. This key must be mapped to the container or must be copied into the image before (this is described later in chapter [App start](/installation/app-start.md)). If there is no need to encrypt passwords, this setting can be skipped and removed.
 
 > Refer to [Password Encryption](/reference/password-encryption.md) in the reference section to generate key pairs and to setup password encryption.
