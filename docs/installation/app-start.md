@@ -1,27 +1,21 @@
 # Start `aqilink` application
-Having the [basic app configuration](installation/app-configuration.md) files from the previous section available, it's time to start the container based on the downloaded image. This page will show the process using the container runtime [Docker](https://docs.docker.com). If your company uses another container runtime, adapt the steps accordingly.
+Having the [basic app configuration](installation/app-configuration.md) files from the previous section available, it's time to start the container based on the downloaded image. This chapter guides you through the process running **`aqilink`** using in the container runtime of [Docker](https://docs.docker.com). To run the SAP integration in production mode, the process is prepared for [Docker Swarm](https://docs.docker.com/get-started/swarm-deploy/) as orchestration tool.
+
+> For other container runtimes and orchestration tools, the steps may differ and must be adapted accordingly. 
 
 ## Docker Load
-Before creating a container from the `aqilink` image, the image must be extracted from the downloaded *tar.gz* file.
-To do so, use the [docker load](https://docs.docker.com/engine/reference/commandline/load/) command.
+Before starting the application the **`aqilink`** image must be extracted from the downloaded *tar.gz* file using the [docker load](https://docs.docker.com/engine/reference/commandline/load/) command.
 
 ```
 docker load -i aqilink_<VERSION>.tar.gz
-   05cb9c26edf8: Loading layer [==================================================>]  19.69MB/19.69MB
-   fb429fdee34e: Loading layer [==================================================>]  3.072kB/3.072kB
-   314992d6fc2a: Loading layer [==================================================>]  902.1kB/902.1kB
-   af98d279c7f6: Loading layer [==================================================>]    191MB/191MB
-   418e39625432: Loading layer [==================================================>]  314.9kB/314.9kB
-   Loaded image: aqilink:<VERSION>
 ```
 
-Make sure the image is available by checking with the [docker image ls](https://docs.docker.com/engine/reference/commandline/image_ls/) command:
+To check whether the image is now available use the [docker image ls](https://docs.docker.com/engine/reference/commandline/image_ls/) command along with the *--filter* option to only list the **aqilink** image:
 ```
-docker image ls
-   REPOSITORY      TAG       IMAGE ID       CREATED        SIZE
-   ...             ...       ...            ...            ...
-   aqilink         <VERSION> ac10911ff112   42 hours ago   439MB
+docker image ls --filter "reference=aqilink"
 ```
+The output after executing both commands sequentially should look like:
+![Docker load and list aqilink image](../_media/installation/docker_load_1.png)
 
 ## Collect necessary files 
 
@@ -100,7 +94,7 @@ services:
     networks:
       - sapnet
   nuxeo:
-    image: nuxeo-lts2021-with-aqilink-nuxeo-module:latest
+    image: nuxeo-lts2021-with-aqilink-module:latest
     ports:
       - 8080:8080
     volumes:
@@ -131,15 +125,18 @@ You can use the created `YAML` file also to go ahead with Docker Swarm.
 
 
 ## Development Mode
-To ramp up **`aqilink`** quickly and to test different configuration options and settings easily, we recommend to use the following `docker-compose.yaml` file along with [docker-compose](https://docs.docker.com/compose/) command as template. This should only be used in development systems.
+To ramp up **`aqilink`** for development purposes to test different configuration options and and scenarios between Nuxeo and SAP, we recommend to use the following `docker-compose.yaml` file as template. Create a new file with name `docker-compose.dev.yaml` inside the  folder ([see step above](/installation/app-start.md#collect-necessary-files)) and paste the content below.
+Instead of copying all necessary files into the Docker image (as ist must be done for [Production Mode](/installation/app-start.md#production-mode)), the below compose file will map the related files and folders into the running container.
 
-Create a `docker-compose.yaml` within the new folder with the following content:
+ - Replace the `<VERSION>` placeholder with the version of the **`aqilink`** Docker image in the current folder.
+ - Make sure that the the specified Nuxeo image for the *nuxeo* service contains the related **aqilink** module.
+
 ```
 version: '3.9'
 
 services:
-  main:
-    platform: linux/amd64
+  aqilink:
+    image: aqilink:<VERSION>
     volumes:
       - ./sap/linux_x64/nwrfcsdk:/usr/local/sap/nwrfcsdk
       - ./sap/linux_x64/nwrfcsdk.conf:/etc/ld.so.conf.d/nwrfcsdk.conf
@@ -153,11 +150,11 @@ services:
     networks:
       - sapnet
   nuxeo:
-    image: nuxeo-lts2021-with-aqilink-nuxeo-module:latest
+    image: nuxeo-lts2021-with-aqilink-module:latest
     ports:
       - 8080:8080
     volumes:
-      - data:/var/lib/nuxeo
+      - ./data:/var/lib/nuxeo
     networks:
       - sapnet
   redis:
@@ -168,8 +165,10 @@ networks:
   sapnet:
 
 ```
+Now start the container using the `docker-compose` command as followed:
 
+```
+docker-compose -f docker-compose.dev.yaml up -d
+```
 
-
-
-Congratulations. You have successfully downloaded and installed **`aqilink`**, it's time to learn all about the configuration options it offers to make it fit to your company. Please read the next chapter.
+Refer to the next chapter [Configuration](/configuration/) to deep dive into the various configuration options of **`aqilink`**.
