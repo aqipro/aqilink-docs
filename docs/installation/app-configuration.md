@@ -33,9 +33,12 @@ To enable the Web UI anyway, the property `queueMonitorEnabled` must be present 
 queueMonitorEnabled: true
 ```
 
-> With this setting, the Web UI is open to public and can be accessed through http://localhost:3000/queues from everone who knows the IP-address and the port without any further authentication. 
+> With this setting, the Web UI is open to public and can be accessed through http://localhost:3000/queues from everyone who knows the IP-address and the port without any further authentication. 
 
 > We highly recommend to disable the Web UI on any production environments! It's intended for debugging purposes in development systems only.
+
+![Queue moitoring with bull-monitor](../_media/installation/bullmonitor.png)
+
 
 ### Redis Database
 As the Bull Queue is based on the open source database [Redis](https://redis.io), there are many more settings regarding the database configuration available. `aqilink` supports all, because it just pass the properties 1:1 to Redis. Check [ioredis](https://github.com/luin/ioredis/blob/v4/API.md) for a full list of available parameter.
