@@ -78,7 +78,7 @@ To start the container based on the image, a `docker-compose.yaml` must be creat
 > Consult your Docker and/or Orchestration system (Docker Swarm, Kubernetes, etc.) expert to create the file content the correct way.
 
 **Before starting the container make sure to:** 
-1) change the image name under the *aqilink:* service according the recently created name used for the custom image
+1) change the image name under the *aqilink* service according the recently created name used for the custom image
 2) change the image name under the *nuxeo* service to the name of the desired Nuxeo image and make sure the port mapping is good and the volume matches. **Note:** The used Nuxeo image must contain the required `aqilink-nuxeo` module (refer to [Other related software](/installation/app-download?id=other-related-software))!
 
 ```
@@ -129,7 +129,7 @@ To ramp up **`aqilink`** for development purposes to test different configuratio
 Instead of copying all necessary files into the Docker image (as ist must be done for [Production Mode](/installation/app-start.md#production-mode)), the below compose file will map the related files and folders into the running container.
 
  - Replace the `<VERSION>` placeholder with the version of the **`aqilink`** Docker image in the current folder.
- - Make sure that the the specified Nuxeo image for the *nuxeo* service contains the related **aqilink** module.
+ - Make sure that the the specified Nuxeo image for the *nuxeo* service contains the related **`aqilink`** module.
 
 ```
 version: '3.9'
