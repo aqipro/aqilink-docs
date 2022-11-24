@@ -145,12 +145,32 @@ Specification of the available content properties used for `importParams`, `expo
 | `constant` | No | Boolean | Set `true` to return a constant value in `source`. Set `false` to return a value based on the return of the SAP function module. Default: `false`. |
 | `prefix` | No | String | A value that should be prefixed to the `source` value before storing it to `target`. Can be any constant only.  |  
 | `suffix` | No | String | A suffix that should be appended to the `source` value before storing it to `target`. Can be any constant only. |  
-| `format` | No | String | For [**importParams**](#property-importparams) only:<br/> Used to format the value of `source` before passing it to `target`. If the `source` property in the content repository is defined as text but the Import Parameter of the SAP function module requires a date, use this property - example: `YYMMDD`. |  
-| `parse` | No | String | For [**exportParams**](#property-exportparams) only:<br/> If the value of `source` is text but needs to be a parsed to a date for `target`. Sometimes, SAP function modules return a date as text while the property in the content repository is defined a date or datetime. To parse the text into a valid date format use this property. |  
+| `parse` | No | String | Used for [**exportParams**](#property-exportparams):<br/>If the value of `source` is text but needs to be parsed to a date for `target`. Sometimes, SAP function modules return a date as text while the property in the content repository is defined a date or datetime. To parse the text into a valid date format use this property. |
+| `format` | No | String | Used for [**importParams**](#property-importparams):<br/> Used to format the value of `source` before passing it to `target`. Especially for dates, there might be a need to use the `parse` property before. Refer below to [**Handle Dates using parse and format**](#handle-date-using-parse-and-format) |   
 | `substring` | No | String | Get a substring from `source` before storing it to `target`. Use `start`and optional `end` child elements. Example:<br/>`substring:`<br/>`  start: 5`<br/>`  end: 25` <br/>Refer to [Mozilla substring() documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring#syntax)|
 
 > If you use multiple optional properties to handle the value of the `- source` property, the processing order is the following:<br/> (1) `format` or `parse`, (2) `prefix`, (3) `suffix`, (4) `substring`.
 
+##### Handle Date() using `parse` and `format`
+To pass dates as import parameter to a SAP function module which requires a Date (SAP data-type `DATS`), the Nuxeo date has to be parsed to a JavaScript date object (using `parse`) which then becomes formatted (using `format`) to match the target format for date in SAP.
+
+Example:
+
+* Value for `dc:created` in Nuxeo: `2022-12-24T11:59:06.375Z`
+* Pattern used to `parse` this as date: `yyyy-MM-dd'T'HH:mm:ss.SSSxxx`
+* Pattern used to `format` the parsed date to match the format of the SAP import parameter: `yyyyMMdd`
+* Related mapping:
+```
+...
+  sapFunctions:
+    - name: ARCHIV_CONNECTION_INSERT
+      importParams:
+        - target: AR_DATE
+          source: dc:created
+          parse:  "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+          format: 'yyyyMMdd'
+          ...
+```
 
 #### Property `success`
 This property is a child of the [`mapping` property](#property-mapping) and can be used to handle the SAP function module call in any success case. For example, use this property to set an exclusion criterion to prevent the next Task run to pick up the document again (refer to [Property `query`](#property-query) above).
