@@ -105,7 +105,13 @@ curl --location --request POST 'http://localhost:8080/nuxeo/api/v1/path/default-
     }
 }'
 ```
-That's it. Now a Task is required which calls an action on SAP side using the configuration file.
+
+#### Secure the File by applying Permissions
+As this configuration file is available in the repository it can be potentially accessed by any user in the system. This should be necessarily prevented! 
+
+> Make sure to prevent file access from end user.
+
+Any change in the file content reflects immediately in the business logic! We strongly recommend to set file permissions to allow only the administrator access to edit the file and its content.
 
 ### Configure Task
 To trigger the desired action, a separate [Task](/configuration/aqishare/tasks) must be configured. For the most common use-cases the following templates are available:
