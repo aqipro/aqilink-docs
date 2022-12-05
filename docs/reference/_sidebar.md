@@ -7,6 +7,7 @@
   * [Password Encryption](/reference/password-encryption.md)
   * [Hyland Nuxeo](/reference/nuxeo.md)
     * [Configuration Files](/reference/nuxeo-reference-configs.md)
+    * [Feature: Connect to SAP](/reference/nuxeo-reference-connect-to-sap.md)
     * [Feature: Open in SAP](/reference/nuxeo-reference-open-in-sap.md)
     * [Feature: Rename data file](/reference/nuxeo-reference-rename-files.md)
   * [Amazon S3](/reference/s3.md)
