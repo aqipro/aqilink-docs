@@ -27,6 +27,7 @@ Create a new JSON file on your machine, for example `aqilink_configuration_conne
 | ----------- |----------- |
 | `path` | The path in the Nuxeo repository where all documents for the current use case must be uploaded. | 
 | `facets` | Comma separated list of facets to be added to the uploaded document. | 
+| `createParentALFolder` | Set `true` to create a parent folder for the newly created document in Nuxeo. The `fct_sap_http_content` facet is added to the parent folder and all related properties of it are filled. Finally, the newly created document will be moved into this new folder. This ensures full compliance with the SAP Http ArchiveLink protocol specification. **Highly recommended for any SAP ArchiveLink scenarios to set this setting to true!** | 
 | `properties` |  List of properties and their default values. Prepend a `$` (Dollar sign) to any value that sould be read from the current uploaded document. For example: `$id` will be resolved as `input.id` and return the UUI of the document, `$dc:created` will be resolved as `input['dc:created']` and return the creation date of the document,...  |
 
 > To succesfully connect to a SAP Business Object in any use case, the facet `fct_sap_http_content` must be added to the document.
@@ -50,6 +51,7 @@ The following parameter of facet `fct_sap_http_content` has to be set and presen
         {
         "path": "/default-domain/workspaces/SAP/SAP Content/Connect to SAP/Send Barcode",
         "facets": ["fct_sap_http_content", "fct_sap_barcode"],
+        "createParentALFolder": true,
         "properties": {
             "sapHttpContent:docId": "$id",
             "sapHttpContent:source":"nuxeo-archivelink-s4h",
@@ -64,6 +66,7 @@ The following parameter of facet `fct_sap_http_content` has to be set and presen
         {
         "path": "/default-domain/workspaces/SAP/SAP Content/Connect to SAP/Link ArchiveLink Document/Invoice",
         "facets": ["fct_sap_http_content", "fct_sap_create_al_document"],
+        "createParentALFolder": true,
         "properties": {
             "sapHttpContent:docId": "$id",
             "sapHttpContent:source":"nuxeo-archivelink-s4h",
