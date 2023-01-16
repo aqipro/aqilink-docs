@@ -44,7 +44,7 @@ Returning the message `400 Bad Request` while testing the basic connection via *
 
 ### SAP: 500 Internal Server Error
 Returning the message `500 Internal Server Error` while testing the basic connection via **`aqilink`** to the repository. This could be a bunch of possible issues in the current configuration. Check the related log files of the **`aqilink`** and/or repository container.
-For example: If Nuxeo is the connected repository, check whehter the service name of the used `docker-compose.yaml` matches the name
-used in parameter `baseUrl` of the configuration file [`storage.yaml`](/configuration/aqilink/#hyland-nuxeo-repository). 
+For example: If Nuxeo is the repository behind **`aqilink`**, check whether the service name of the used `docker-compose.yaml` matches the name
+used in parameter `baseUrl` of the configuration file [`storage.yaml`](/configuration/aqilink/#hyland-nuxeo-repository). Also, make sure that all services in the `docker-compose.yaml` using the same network.
 
 ![Internal Server Error](/_media/faq/0005_sap_internalServerError.png)
