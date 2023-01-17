@@ -8,8 +8,8 @@ The feature *Open in SAP Web GUI* allows the user in Nuxeo to open the document 
 3) The SAP transaction is maintained in the properties.
 
 ## Administration
-The feature can be enabled or disabled on each available SAP Content Repository file in Nuxeo which means, it is either enabled or disabled for all documents of this repository. The SAP Content Repository files are located under the related [SAP HTTP-Content Server Connection](/configuration/aqilink/#sap-http-content-server-connection) folder of the `aqilink` administration path in Nuxeo. 
-The file extension is **`.repo`** and is located under the specified `adminPath` (in configuration file `storage.yaml`, refer to [Storage Connection for Hyland Nuxeo Repository](/configuration/aqilink/#hyland-nuxeo-repository)) in the repository.
+The feature can be enabled or disabled for each SAP Content Repository available in Nuxeo. Navigate to the repository folders underneath the **`aqilink`** administration path. The path is specified in parameter `adminPath` of the [Storage Connections for Nuxeo](/configuration/aqilink/#hyland-nuxeo-repository).
+In each repository folder the repository file has the file extension `.repo`.
 
 ![Open in SAP](../_media/reference/open_in_sap_repo_0.png)
 
@@ -23,6 +23,8 @@ Edit the properties of the `.repo` file to maintain the following settings for t
 | ``WebClient Language`` | The lanugage used as preselection for the user login.   |  
 | ``WebClient Screen-Personas Theme Id`` | If there is any public Screen-Personas theme available, set the ID of the theme to be used after the user logged in.  |  
 | ``WebClient URL Parameter Mapping`` | The most important part. It contains the mapping of the properties to the related SAP transaction.  |  
+
+> Make sure to replace the placeholder *sap-ip-address* in property `SAP WebClient URL` with the IP or hostname of the SAP server. 
 
 ![Open in SAP](../_media/reference/open_in_sap_repo_1.png)
 
@@ -40,14 +42,15 @@ The following SAP Objects are currently supported by default:
 
 Once the feature is enabled, this is the user experience in Nuxeo. 
 
-1) The user navigates to a document, stored from SAP. 
+1) The user navigates to a document which was stored from SAP. 
 2) A new action command is available on the Document Actions menu.
-   1)  He must make sure that metadata from SAP has been already replicated and the facet *SAP Replicated Details* is available on the document.
+   > The command is available as soon as the facet *SAP Replicated Details* is available on the document. Depending on the runtime of the [Task](/configuration/aqishare/tasks) job which adds this facet, this may take some time (the time specified in the [CRON expression](/configuration/aqishare/tasks#property-trigger)).
+
 ![UX Open in SAP Nuxeo](../_media/reference/open_in_sap_user_0.png)
 
-3) The user click on the action command "Open in SAP".
-4) The SAP WebGUI opens in a new browser window.
+3) The user clicks the action command "Open in SAP".
+4) The SAP WebGUI opens in a new browser session.
 5) The user must enter his SAP credentials to login to the SAP system.
-6) He will be immediately redirected to the SAP Business Object associated with the current document in Nuxeo. 
+6) Once done, the user is immediately redirected to the SAP Business Object associated with the current document in Nuxeo. 
 ![UX Open in SAP](../_media/reference/open_in_sap_user_1.png)
 7) The user can now continue his work on the SAP Business Object.
