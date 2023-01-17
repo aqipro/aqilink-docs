@@ -4,6 +4,7 @@
 * [Installation](/installation/ "Installation")
 * [Configuration](/configuration/ "Configuration")
 * [Reference](/reference/)
+  * [Communication via HTTPS](/reference/aqilink_sap_https.md)
   * [Password Encryption](/reference/password-encryption.md)
   * [Hyland Nuxeo](/reference/nuxeo.md)
     * [Configuration Files](/reference/nuxeo-reference-configs.md)
