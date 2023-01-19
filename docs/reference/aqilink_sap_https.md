@@ -8,18 +8,20 @@ This chapter describes the necessary steps to implement the certificate from the
 * It does not cover the installation and configuration of the SSL connection on the connected repository.
 * It does not cover the creation of the certificate itself. 
 
-## Get current Certificate from ``aqilink``
+## Get current Certificate
 
-The certificate used by the **`aqilink`** webserver must be known and imported in SAP. To get and export the certificate use these steps:
+The certificate used by the **`aqilink`** webserver must be known and imported in SAP. To get and to export the certificate from the webserver use these steps:
 
-1) Open a webbrowser and navigate to host where **`aqilink`** is running using port `3000` (if you've changed the default port in your `Dockerfile` or `docker-compose.yaml` use the port numbery of your setup). Then click the Lock icon in front of the URL to view site information.
+1) Open a browser and navigate to the webserver where **`aqilink`** is running at port `3000`. If you've changed this default port in your `Dockerfile` or `docker-compose.yaml` use the port number of your setup. Then click the Lock icon in front of the URL to view site information.
    
    Example:
-   ```https://localhost:3000```
+   ```
+   https://localhost:3000
+   ```
 
 ![Access aqilink](../_media/reference/https/browser_aqilink_port.png)
 
-2) View the currently installed certificate details and export the certificate. In Google Chrome click on *Connection is secure*, then *Certificate is valid* and switch to tab *Details* to find the export button. Save the certificate on the local machine. This file must be now imported to SAP.
+2) View the currently installed certificate details and export the certificate. In Google Chrome click on *Connection is secure*, then *Certificate is valid* and switch to tab *Details* to find the export button. Save the certificate with file extension `.pem` to the local machine.
 
 ![Export certificate](../_media/reference/https/browser_export_certificate.png)
 
@@ -64,11 +66,11 @@ To import the certificate from [above](#get-current-certificate-from-aqilink) to
 ![SAP STRUST 2](../_media/reference/https/sap_strust_2.png)
 
 5) Select the previously saved `.pem` file of the [certificate export](#get-current-certificate-from-aqilink) using the File chooser. The certificate now appears with all its details.
-6) Finally, click on `Add to Certificate List` to add the certificate to the Certificate list.
+6) Click on `Add to Certificate List` to add the certificate to the Certificate list.
 
 ![SAP STRUST 3](../_media/reference/https/sap_strust_3.png)
 
-7) The certificate from the **`aqilink`** webserver is now available in the trusted certificate list. Validate it by scrolling through the list of certificates to find the entry. Hoewver, the list is not yet saved!
+7) The certificate from the **`aqilink`** webserver is now available in the trusted certificate list. Validate it by scrolling through the list of certificates to find the entry. However, the list is not yet saved!
 
 ![SAP STRUST 4](../_media/reference/https/sap_strust_4.png)
 
