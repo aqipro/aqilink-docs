@@ -13,5 +13,7 @@
     * [Feature: Rename data file](/reference/nuxeo-reference-rename-files.md)
   * [Amazon S3](/reference/s3.md)
     * [Configuration Files](/reference/s3-reference-configs.md)
+  * [Microsoft SharePoint Online](/reference/sharepoint.md)
+    * [Configuration Files](/reference/sharepoint-reference-configs.md)
 * [FAQ](/faq.md)
 * [Glossary](/_glossary.md)

@@ -63,3 +63,18 @@ The below table lists all available parameters for the `storage.yaml` to establi
 | ``transport`` | No |  Pass a custom transport.      |  |
 | ``partSize`` | No |  Override the default part size of 64MB for multipart uploads.      |  |
 | ``pathStyle`` | No |  Override default access behavior (path) for non AWS endpoints.      | `true` |
+
+### Microsoft SharePoint Online (SPO)
+The below table lists all available parameters for the `storage.yaml` to establish a connection to a Microsoft SharePoint Online site. For example configurations refer to the [related part in the Reference section](../reference/s3-reference-configs#example-configuration-for-storageyaml).
+
+| Parameter      | Mandatory | Description | Example |
+| ----------- | ----------- |----------- | ----------- | 
+| ``name`` | Yes | Must match the exact name as provided for parameter `storage` in the [SAP Content Server Connection](#sap-http-content-server-connection) (`sapHttp.yaml`).       |  `ms-sharepoint-archive` |
+| ``type`` | Yes | The type of the repository that should be connected. As the connection routes to a SharePoint Online site, the value must be `sharepoint`. |  `sharepoint` |
+| ``sharepointUrl`` | Yes | The Url of the SharePoint tenant.      | `https://mycompany.sharepoint.com` |
+| ``tenantName`` | Yes | The tenant name of SharePoint.       | `mycompany` |
+| ``siteName`` | Yes | The site name in the tenant to store documents from SAP.       | `sapdemo` |
+| ``tenantId`` | Yes| The unique tenant ID. This information can be found in the Azure AD Admin Center. [Microsoft documentation: Find your Microsoft 365 tenant ID](https://learn.microsoft.com/en-us/sharepoint/find-your-office-365-tenant-id)      | `<TenantId>` |
+| ``clientId`` | Yes |  The client Id, related to the Certificate of the registered [App in the Azure AD](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps).      | `<ClientId>` |
+| ``thumbprint`` | Yes | Related to the Certificate of the registered [App in the Azure AD](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps).     | `<ThumbprintId>` |
+| ``privateKey`` | Yes | The private key of the Certificate of the registered [App in the Azure AD](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps). | `<PrivateKey>`  |
