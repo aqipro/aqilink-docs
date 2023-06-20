@@ -71,6 +71,8 @@ The below table lists all available parameters for the `storage.yaml` to establi
 | ----------- | ----------- |----------- | ----------- | 
 | ``name`` | Yes | Must match the exact name as provided for parameter `storage` in the [SAP Content Server Connection](#sap-http-content-server-connection) (`sapHttp.yaml`).       |  `ms-sharepoint-archive` |
 | ``type`` | Yes | The type of the repository that should be connected. As the connection routes to a SharePoint Online site, the value must be `sharepoint`. |  `sharepoint` |
+| ``adminPath`` | Yes | The path in SharePoint where the SAP Content Repository files and SAP certificates are stored. Use a separate Document Library (recommended is even a separate SharePoint Site) for all SAP Content Repositories. |  `SAPRepositories/Repositories` |
+| ``documentPath`` | Yes | The document root folder for all documents from the current SAP Content Repository. |  `SAPDocuments/ArchiveLink` |
 | ``sharepointUrl`` | Yes | The Url of the SharePoint tenant.      | `https://mycompany.sharepoint.com` |
 | ``tenantName`` | Yes | The tenant name of SharePoint.       | `mycompany` |
 | ``siteName`` | Yes | The site name in the tenant to store documents from SAP.       | `sapdemo` |
