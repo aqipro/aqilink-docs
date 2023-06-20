@@ -15,5 +15,6 @@
     * [Configuration Files](/reference/s3-reference-configs.md)
   * [Microsoft SharePoint Online](/reference/sharepoint.md)
     * [Configuration Files](/reference/sharepoint-reference-configs.md)
+    * [Feature: Open in SAP](/reference/sharepoint-reference-open-in-sap.md)
 * [FAQ](/faq.md)
 * [Glossary](/_glossary.md)
