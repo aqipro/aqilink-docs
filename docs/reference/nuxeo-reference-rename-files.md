@@ -1,14 +1,15 @@
 # Nuxeo - Reference for Feature *Rename*
 
-The feature *Rename* (data file and parent folder) enables to rename all SAP ArchiveLink stored files to their original filename.
+The feature *Rename* (for both the data file and the parent folder) allows you to rename all SAP ArchiveLink stored files to their original filenames.
+
 
 ### Requirements
 1) The metadata replication is enabled and facet `SAP Replicated Details` is available on the document.
 2) The feature has been enabled for the repository.
 
 ## Administration
-The feature can be enabled or disabled on each available SAP Content Repository file in Nuxeo which means, it is either enabled or disabled for all documents stored in this repository. The SAP Content Repository files are located under the related [SAP HTTP-Content Server Connection](/configuration/aqilink/#sap-http-content-server-connection) folder of the `aqilink` administration path in Nuxeo. 
-The file extension is **`.repo`** and is located under the specified `adminPath` (in configuration file `storage.yaml`, refer to [Storage Connection for Hyland Nuxeo Repository](/configuration/aqilink/#hyland-nuxeo-repository)) in the repository.
+The feature can be enabled or disabled on each available SAP Content Repository file in Nuxeo. This means it can be either enabled or disabled for all documents stored in this repository. The SAP Content Repository files are found within the corresponding [SAP HTTP-Content Server Connection](/configuration/aqilink/#sap-http-content-server-connection) folder in the `aqilink` administration path of Nuxeo. 
+The file extension is **`.repo`** and can be found within the specified `adminPath` (in configuration file `storage.yaml`, refer to [Storage Connection for Hyland Nuxeo Repository](/configuration/aqilink/#hyland-nuxeo-repository)) within the repository.
 
 ![Rename 0](../_media/reference/feature_rename_0.png)
 
@@ -21,7 +22,7 @@ Edit the properties of the `.repo` file to enable the feature:
 > Note: Existing documents in Nuxeo are not touched by any change of this setting. The rename will work for new arriving documents only.
 
 ## User Expericence
-Once the feature is enabled, the *data* file as well as the parent folder of each arriving SAP ArchiveLink document stored to this repository will be renamed with the original filename stored in SAP automatically. There is no additional action of the user required.
+Once the feature is enabled, both the *data* file and the parent folder of each incoming SAP ArchiveLink document stored in this repository will be automatically renamed with the original filename stored in SAP. There is no additional action required by the user.
 
 ### Before renaming
 
