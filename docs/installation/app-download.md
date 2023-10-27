@@ -1,7 +1,7 @@
 # Download
-This section describes how to download the latest **`aqilink`** Docker image and how to load the image.
+This section describes how to download the latest **`aqilink`** Docker image as well as related software.
 
-> To download the image or any other related software (see below) from our delivery portal, a valid license key for **`aqilink`** is required. 
+> To download the image or any related software (as listed below) from our delivery portal, a valid license key for **`aqilink`** is required. 
 
 ## Download Docker Image
 Use the following URL to download the latest stable **`aqilink`** release:
@@ -12,7 +12,8 @@ https://delivery.aqipro.com/api/download/aqilink/<YOUR-LICENSE-KEY>
 
 ### Other related Software
 
-While the most important download will be for sure the **`aqilink`** Docker image, you can download the following additional software from our delivery portal by using the URLs below. Note: Some downloads may only required if you run the related storage system.
+While the most important download is undoubtedly the  **`aqilink`** Docker image, you can download the following additional software from our delivery portal using the URLs provided. Note: Some downloads may only be required if you run the associated storage system.
+
 
 > You must provide a valid license key in the URL to download the software!
 
@@ -24,8 +25,8 @@ While the most important download will be for sure the **`aqilink`** Docker imag
 
 
 ## SAP NetWeaver RFC SDK
-The [SAP NetWeaver Remote Function Call (RFC) Software Development Kit (SDK)](https://support.sap.com/en/product/connectors/nwrfcsdk.html) is required to use the [Data Exchange](/configuration/aqishare) capabilities of **`aqilink`** through SAP Remote Function Calls (RFC) to invoke function modules. The SDK can neither be shipped with the **`aqilink`** Docker image nor offered as a separate download on this page, as this is infringes the SAP terms and conditions.
+The [SAP NetWeaver Remote Function Call (RFC) Software Development Kit (SDK)](https://support.sap.com/en/product/connectors/nwrfcsdk.html) is required to utilize the  [Data Exchange](/configuration/aqishare) capabilities of **`aqilink`** through SAP Remote Function Calls (RFC) to invoke function modules. The SDK cannot be included with the **`aqilink`** Docker image or offered as a separate download on this page, as doing so would infringe on SAP's terms and conditions.
 
-Because the **`aqilink`** Docker image is based on a Linux system, the *SAP NetWeaver RFC SDK* for **Linux (linux_64)** must be downloaded from the [SAP support portal](https://support.sap.com/en/product/connectors/nwrfcsdk.html). 
+Since the **`aqilink`** Docker image is based on a Linux system, the *SAP NetWeaver RFC SDK* for **Linux (linux_64)** needs to be downloaded from the [SAP support portal](https://support.sap.com/en/product/connectors/nwrfcsdk.html). 
 
-> You'll need to have a valid SAP S-User Id available to login and therefore to download the SDK.
+> You'll need a valid SAP S-User ID to log in and download the SDK.

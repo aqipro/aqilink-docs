@@ -1,7 +1,7 @@
 # Get started
 
-Discover our documentation portal to build, operate, maintain or enhance our SAP certified integration **`aqilink`**. Check [our website](https://aqipro.com) to learn more about the product. Would you rather watch videos than reading text? Then visit our [Youtube channel](https://www.youtube.com/channel/UCoY_TGyXEJkpK7LVxJNWHYg).
 
+Explore our documentation portal to learn how to build, operate, maintain, or enhance our SAP-certified integration, **`aqilink`**. For more information about the product, visit [our website](https://aqipro.com). Prefer watching videos over reading text? Check out our [Youtube channel](https://www.youtube.com/@aqipro).
 
    <img src="_media/architecture_1.png" width="80%" border="0" alt="aqipro - High Level Architecture"/>
 

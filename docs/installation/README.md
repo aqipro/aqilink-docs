@@ -1,7 +1,5 @@
 # Installation
 
-**`aqilink`** is delivered within a Docker image which must be used to create a running instance (container) out of it. The Docker image is available upon request of the [free Trial version](https://try.aqipro.com) of the product.
+Our product **`aqilink`** is provided as a Docker image. To use it, you must create a running instance (container) from this image. You can request the Docker image as part of the  [free Trial version](https://try.aqipro.com) of the product.
 
-
-In these topics you’ll install and set up everything you need to run **`aqilink`**. See Prerequisites and Supported Platforms for information on what you require before you start the installation.
-
+In the following topics, you'll learn how to install and set up everything necessary to run Aqilink. Before you begin the installation, refer to the 'Prerequisites' and 'Supported Platforms' sections to understand the requirements

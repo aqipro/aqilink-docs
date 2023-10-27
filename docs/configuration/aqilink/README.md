@@ -1,19 +1,19 @@
 # Configure *Document Exchange*
 
-This chapter explain the configuration options for the *Document Exchange* (**`aqilink`**) module to connect SAP with a content repository. The main configuration is split into two different [YAML files](https://yaml.org) to offer maximum flexibility.  
+This chapter explain the configuration options for the *Document Exchange* (**`aqilink`**) module, which connects SAP to a content repository. The primary configuration is divided into two separate `YAML` files to provide maximum flexibility.
+
 
 | File      | Description | 
 | ----------- | ----------- |
 | ``sapHttp.yaml`` | Defines all HTTP inbound connections from the SAP system and maps it to the related section in the `storage.yaml`.  |
 | ``storage.yaml`` | Defines the connection parameters to connect to the reqired repository. |
 
-The next image demonstrates how both files (in particular the property values inside) are related to each other.
-It also shows the main mapping point between the Content Repository configuration in SAP and the `sapHttp.yaml`. 
+The following image illustrates the relationship between the two files, specifically the property values within them. It highlights the primary mapping point between the Content Repository configuration in SAP and the  `sapHttp.yaml`.
 
 ![aqilink Value Mapping](../../_media/aqilink_value_mapping_files.png)
 
 ## SAP HTTP-Content-Server Connection
-The `sapHttp.yaml` defines the inbound connections from the SAP system and maps it to the related repository configuration of the [Storage Connections](#storage-connections). Each inbound connection consists of the 3 properties listed in the table below.
+The `sapHttp.yaml` defines the inbound connections from the SAP system and maps them to the corresponding repository configuration of the [Storage Connections](#storage-connections). Each inbound connection comprises the three properties listed in the table below.
 
 > Depending on the **`aqilink`** license there can be as many definitions as required in this file.
 

@@ -1,7 +1,7 @@
 # Start `aqilink` application
-Having the [basic app configuration](installation/app-configuration.md) files from the previous section available, it's time to start the container based on the downloaded image. This chapter guides you through the process running **`aqilink`** using in the container runtime of [Docker](https://docs.docker.com). To run the SAP integration in production mode, the process is prepared for [Docker Swarm](https://docs.docker.com/get-started/swarm-deploy/) as orchestration tool.
+With the [basic app configuration](installation/app-configuration.md) files from the previous section in hand, it's time to start the container using the image you've downloaded. This chapter will guide you through the process of running **`aqilink`** within the container runtime of [Docker](https://docs.docker.com). To run the SAP integration in production mode, this procedure is tailored for [Docker Swarm](https://docs.docker.com/get-started/swarm-deploy/) as the orchestration tool.
 
-> For other container runtimes and orchestration tools, the steps may differ and must be adapted accordingly. 
+> For other container runtimes and orchestration tools, the steps may vary and will need to be adapted accordingly.
 
 ## Docker Load
 Before starting the application the **`aqilink`** image must be extracted from the downloaded *tar.gz* file using the [docker load](https://docs.docker.com/engine/reference/commandline/load/) command.
@@ -18,8 +18,7 @@ The output after executing both commands sequentially should look like:
 ![Docker load and list aqilink image](../_media/installation/docker_load_1.png)
 
 ## Collect necessary files 
-
-The following steps are necessary as foundation to proceed either with the [Production Mode](#production-mode) or the [Development Mode](#development-mode) part:
+The following steps are foundational and necessary to proceed with the [Production Mode](#production-mode) or the [Development Mode](#development-mode) part:
 
 - Create a new folder on your machine and copy the following elements into it:
    - The recently downloaded **``aqilink``** Docker image *aqilink_< VERSION>.tar.gz* 
@@ -33,7 +32,7 @@ The structure of the folder should now look like:
 ![Base folder for new custom Docker image](../_media/installation/folder_structure_custom_docker_image.png)
 
 ## Production Mode
-The usage of any orchestration tool such as Docker Swarm or Kubernetes requires to have all related files inside the image. To fulfill this requirement, a new custom based Docker image has to be created containing the previously maintained `/config/` folder as well as the SAP NetWeaver SDK.
+The use of orchestration tools like Docker Swarm or Kubernetes necessitates having all related files within the image. To meet this requirement, a custom Docker image must be created that includes the previously maintained `/config/` folder and the SAP NetWeaver SDK.
 
 > Make sure that all settings in the `/configs/` folder are correct.
 
@@ -125,11 +124,10 @@ You can use the created `YAML` file also to go ahead with Docker Swarm.
 
 
 ## Development Mode
-To ramp up **`aqilink`** for development purposes to test different configuration options and and scenarios between Nuxeo and SAP, we recommend to use the following `docker-compose.yaml` file as template. Create a new file with name `docker-compose.dev.yaml` inside the  folder ([see step above](/installation/app-start.md#collect-necessary-files)) and paste the content below.
-Instead of copying all necessary files into the Docker image (as ist must be done for [Production Mode](/installation/app-start.md#production-mode)), the below compose file will map the related files and folders into the running container.
+To ramp up **`aqilink`** for development purposes and test different configuration options and scenarios between Nuxeo and SAP, we recommend using the following `docker-compose.yaml` file as a template. Create a new file named `docker-compose.dev.yaml` inside the folder (refer to the [steps above](/installation/app-start.md#collect-necessary-files)) and paste the content below. Instead of copying all the necessary files into the Docker image (as must be done for [Production Mode](/installation/app-start.md#production-mode)), the compose file below will map the related files and folders into the running container.
 
  - Replace the `<VERSION>` placeholder with the version of the **`aqilink`** Docker image in the current folder.
- - Make sure that the the specified Nuxeo image for the *nuxeo* service contains the related **`aqilink`** module.
+ - Ensure that the specified Nuxeo image for the *nuxeo* service contains the related **`aqilink`** module.
 
 ```
 version: '3.9'

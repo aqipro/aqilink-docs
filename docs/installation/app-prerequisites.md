@@ -29,10 +29,16 @@ To successfully run the SAP certified integration **`aqilink`**, the following r
 
 ## Nuxeo
 
-* Nuxeo LTS 2019 (or up to latest)
+* Nuxeo LTS 2019
+* Nuxeo LTS 2023
 * Separate Nuxeo user only used for the SAP integration (recommended) 
 
 ## AWS S3
 
 * AWS account
 * Access / Secret key
+
+## Microsoft SharePoint Online
+
+* Permission to manage a site
+* Access to deploy the content model using PnP-PowerShell
