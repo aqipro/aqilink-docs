@@ -15,7 +15,7 @@ Tasks are finally the actions, that are executed against the SAP system and that
 | `mapping` | Yes | Object | Specifies the SAP function module or Rest service and define the property mapping which should be passed to SAP and the property mapping of the result to the properties of the repository.<br/> [Refer below to Property `mapping` specification](#property-mapping). |
 | `attempts` | No | Number | The total number of attempts to try the job until it completes. If exceeded the document will be excluded for each new run. Default: `3`  |
 | `backoff` | No | Number | Backoff setting for automatic retries if the job fails in Milliseconds. Needs `attempts` to be set. Default: `600000` (10 min)  |
-
+| `removeOnComplete` | No | Boolean, Number, KeepJobs | If `true`, removes the job when it successfully completes from the [Bull Queue](/installation/app-configuration?#queue-monitoring). If set to a number, the specified number of jobs will be retained. For KeyJobs, refer to the [KeyJobs interface](https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#keepjobs-options). Default behavior is to keep the job in the completed set. All jobs will be removed automatically as soon as they are finalized from the |
 
 ### Property `trigger`
 The `trigger` property defines how the task can be executed. This can be either done automatically using a CRON expression or manually by invoking the task with an access key.
