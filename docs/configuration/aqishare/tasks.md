@@ -138,28 +138,36 @@ mapping:
 ##### Content Property
 Specification of the available content properties used for `importParams`, `exportParams`, `success` and `failure`.
 
+> Note: The table describes the `source` and `target` property for `exportParams`, `success` and `failure`. For `importParams` the `source` and `target` parameter are reversed. 
+
 | Property      | Mandatory | Type | Description |
 | ----------- | ----------- |----------- | ----------- | 
 | **`- source`** | Yes | List/String | List property in the YAML syntax. Needs a Hyphen as prefix. Depending on the `constant` below, the value can either be a constant or a value from the returning SAP function module call.    | 
 | `target` | Yes | String | Define the property in the repository where the value from `source` should be stored. |  
 | `constant` | No | Boolean | Set `true` to return a constant value in `source`. Set `false` to return a value based on the return of the SAP function module. Default: `false`. |
-| `prefix` | No | String | A value that should be prefixed to the `source` value before storing it to `target`. Can be any constant only.  |  
-| `suffix` | No | String | A suffix that should be appended to the `source` value before storing it to `target`. Can be any constant only. |  
-| `parse` | No | String | Used for [**exportParams**](#property-exportparams):<br/>If the value of `source` is text but needs to be parsed to a date for `target`. Sometimes, SAP function modules return a date as text while the property in the content repository is defined a date or datetime. To parse the text into a valid date format use this property. |
-| `format` | No | String | Used for [**importParams**](#property-importparams):<br/> Used to format the value of `source` before passing it to `target`. Especially for dates, there might be a need to use the `parse` property before. Refer below to [**Handle Dates using parse and format**](#handle-date-using-parse-and-format) |   
-| `substring` | No | String | Get a substring from `source` before storing it to `target`. Use `start`and optional `end` child elements. Example:<br/>`substring:`<br/>`  start: 5`<br/>`  end: 25` <br/>Refer to [Mozilla substring() documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring#syntax)|
+| `script` | No | String | Modify the value using JavaScript functionality before sending or after retrieving it, for instance, by parsing (for [**exportParams**](#property-exportparams)) or formatting (for [**importParams**](#property-importparams)) the value.  |  
 
-> If you use multiple optional properties to handle the value of the `- source` property, the processing order is the following:<br/> (1) `format` or `parse`, (2) `prefix`, (3) `suffix`, (4) `substring`.
 
-##### Handle Date() using `parse` and `format`
-To pass dates as import parameter to a SAP function module which requires a Date (SAP data-type `DATS`), the Nuxeo date has to be parsed to a JavaScript date object (using `parse`) which then becomes formatted (using `format`) to match the target format for date in SAP.
+###### Using `script` parameter
+Use the `script` parameter to alter the value with JavaScript functionality. This can be useful if the value needs to be parsed and/or formatted to match a target format. Dealing with date objects and boolen values are possible use cases for using this parameter.
 
-Example:
+The following properties will be passed to the `script` and can thus be accessed within it.
 
+| Property      | Description |
+| ----------- |  ----------- | 
+| `logger` | The logger instance is used to log various activities within the script.  | 
+| `props` | The properties of the current document being processed by the function module.   | 
+| `dateFns` | Used if the value should be formatted as a date or parsed from a date. You can use any functions of the [date-fns](https://date-fns.org/) library.  | 
+| `content` | The content of the currently processed property in the configuration includes `target`, `content`, and, if present, `script` and `constant`.  | 
+| `value` | The value from the `source` parameter.    | 
+
+1) Example mapping to send a date from Nuxeo to SAP.
+   
 * Value for `dc:created` in Nuxeo: `2022-12-24T11:59:06.375Z`
-* Pattern used to `parse` this as date: `yyyy-MM-dd'T'HH:mm:ss.SSSxxx`
-* Pattern used to `format` the parsed date to match the format of the SAP import parameter: `yyyyMMdd`
-* Related mapping:
+* Pattern used to parse this as date: `yyyy-MM-dd'T'HH:mm:ss.SSSxxx`
+* Pattern used to format the parsed date to match the format of the SAP import parameter (type 'DATS'): `yyyyMMdd`
+
+The related `script` parameter for an import parameter can look like:
 ```
 ...
   sapFunctions:
@@ -167,10 +175,27 @@ Example:
       importParams:
         - target: AR_DATE
           source: dc:created
-          parse:  "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
-          format: 'yyyyMMdd'
+          script: dateFns.format(dateFns.parse(value, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", new Date()), "yyyyMMdd")
           ...
 ```
+
+2) Example mapping to send a boolean value to SAP.
+
+In SAP ABAP, the concept of a `Boolean` data type does not exist. Instead, ABAP uses integer types or character types to represent boolean values. Typically, a single character type `CHAR(1)` is used, with `'X'` representing *true* and a space `' '` representing *false*. 
+
+The related `script` parameter for an import parameter which handles a `Boolean` can look like: 
+
+```
+...
+  sapFunctions:
+    - name: ARCHIV_PROCESS_RFCINPUT
+      importParams:
+        - target: DOCUMENT_ENTRY.LATE
+          source: sapStartWorkflow:sapLateArchiving
+          script: value === true ? "X" : ""'
+          ...
+```
+
 
 #### Property `success`
 This property is a child of the [`mapping` property](#property-mapping) and can be used to handle the SAP function module call in any success case. For example, use this property to set an exclusion criterion to prevent the next Task run to pick up the document again (refer to [Property `query`](#property-query) above).
