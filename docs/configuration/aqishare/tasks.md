@@ -15,7 +15,7 @@ Tasks are finally the actions, that are executed against the SAP system and that
 | `mapping` | Yes | Object | Specifies the SAP function module or Rest service and define the property mapping which should be passed to SAP and the property mapping of the result to the properties of the repository.<br/> [Refer below to Property `mapping` specification](#property-mapping). |
 | `attempts` | No | Number | The total number of attempts to try the job until it completes. If exceeded the document will be excluded for each new run. Default: `3`  |
 | `backoff` | No | Number | Backoff setting for automatic retries if the job fails in Milliseconds. Needs `attempts` to be set. Default: `600000` (10 min)  |
-| `removeOnComplete` | No | Boolean, Number, KeepJobs | If `true`, removes the job when it successfully completes from the [Bull Queue](/installation/app-configuration?#queue-monitoring). If set to a number, the specified number of jobs will be retained. For KeyJobs, refer to the [KeyJobs interface](https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#keepjobs-options). Default behavior is to keep the job in the completed set. All jobs will be removed automatically as soon as they are finalized from the |
+| `removeOnComplete` | No | Boolean, Number, KeepJobs | If `true` or unset, removes the job when it successfully completes from the [Bull Queue](/installation/app-configuration?#queue-monitoring) (default behavior). If set to a number, the specified number of jobs will be retained. For KeyJobs, refer to the [KeyJobs interface](https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#keepjobs-options).  |
 
 ### Property `trigger`
 The `trigger` property defines how the task can be executed. This can be either done automatically using a CRON expression or manually by invoking the task with an access key.
@@ -138,14 +138,12 @@ mapping:
 ##### Content Property
 Specification of the available content properties used for `importParams`, `exportParams`, `success` and `failure`.
 
-> Note: The table describes the `source` and `target` property for `exportParams`, `success` and `failure`. For `importParams` the `source` and `target` parameter are reversed. 
-
 | Property      | Mandatory | Type | Description |
 | ----------- | ----------- |----------- | ----------- | 
-| **`- source`** | Yes | List/String | List property in the YAML syntax. Needs a Hyphen as prefix. Depending on the `constant` below, the value can either be a constant or a value from the returning SAP function module call.    | 
-| `target` | Yes | String | Define the property in the repository where the value from `source` should be stored. |  
-| `constant` | No | Boolean | Set `true` to return a constant value in `source`. Set `false` to return a value based on the return of the SAP function module. Default: `false`. |
-| `script` | No | String | Modify the value using JavaScript functionality before sending or after retrieving it, for instance, by parsing (for [**exportParams**](#property-exportparams)) or formatting (for [**importParams**](#property-importparams)) the value.  |  
+| **`source`** | Yes | String | For [**exportParams**](#property-exportparams) it must be a list property in the YAML syntax (requires a hyphen as prefix). For [**importParams**](#property-importparams), depending on the `constant` or `script` setting below, the value can either be a hardcoded or parsed/formatted by Javascript.  | 
+| **`target`** | Yes | String | Same explanation as above - but reversed: For [**importParams**](#property-importparams) it must be a list property in the YAML syntax (requires a hyphen as prefix) and for [**exportParams**](#property-exportparams) the `constant` or `script` has effect. |  
+| `constant` | No | Boolean | Set `true` to return a constant value in `source` (for [**importParams**](#property-importparams)) or `target` (for [**exportParams**](#property-exportparams)). Set `false` to return a value based on the return of the SAP function module. Default: `false`. |
+| `script` | No | String | Modify the value using JavaScript functionality before sending or after retrieving it, for instance, by parsing (for [**exportParams**](#property-exportparams)) or formatting (for [**importParams**](#property-importparams)) the value. Refer to section below. |  
 
 
 ###### Using `script` parameter
@@ -155,7 +153,7 @@ The following properties will be passed to the `script` and can thus be accessed
 
 | Property      | Description |
 | ----------- |  ----------- | 
-| `logger` | The logger instance is used to log various activities within the script.  | 
+| `logger` | The logger instance. Can be used to log various activities within the script.  | 
 | `props` | The properties of the current document being processed by the function module.   | 
 | `dateFns` | Used if the value should be formatted as a date or parsed from a date. You can use any functions of the [date-fns](https://date-fns.org/) library.  | 
 | `content` | The content of the currently processed property in the configuration includes `target`, `content`, and, if present, `script` and `constant`.  | 
@@ -192,7 +190,7 @@ The related `script` parameter for an import parameter which handles a `Boolean`
       importParams:
         - target: DOCUMENT_ENTRY.LATE
           source: sapStartWorkflow:sapLateArchiving
-          script: value === true ? "X" : ""'
+          script: 'value === true ? "X" : ""'
           ...
 ```
 
