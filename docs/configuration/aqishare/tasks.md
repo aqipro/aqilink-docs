@@ -45,35 +45,60 @@ trigger:
 ```
 
 ### Property `query`
-The `query` property defines query send to the repository to find related documents. 
-Support for Nuxeo only - refer to [Nuxeo Documentation | NXQL](https://doc.nuxeo.com/nxdoc/nxql/).
+The `query` property specifies the query sent to the repository to search for related documents. Given that the underlying repositories differ significantly, necessitating distinct handling approaches, the documentation for this parameter is segregated based on the specific repository to enhance clarity.
+
+> Remember to always include an exclusion criterion for the documents in the `query`! A best practice is to utilize the result value returned by either the [`success`](#property-success) or [`success`](#property-failure) properties.
+
+#### Hyland Nuxeo specification
+This chapter outlines the available settings for the `query` property when using a Hyland Nuxeo repository.
 
 | Property      | Mandatory | Type | Description |
 | ----------- | ----------- |----------- | ----------- | 
-| `type` | Yes | String | The query type. Available values: `nuxeo`.  | 
-| `language` | No | String | The language of the query below. Default: `NXQL`. | 
-| `query` | Yes | String | The query to find the documents in the repository. Must include an exclusion criterion for documents that has been already processed. |
-| `properties` | No | String | Query properties to be considered only. Default: `*` (all). | 
-| `schemas` | No | String Array | Schemas to be considered. Default: *`empty`*. |
-| `sortBy` | No | String Array | The property to sort the result set. | 
-| `sortOrder` | No | String Array | The sort order. Default: `DESC`.  | 
+| `type` | Yes | String | Set value to `nuxeo`. For SharePoint refer to next chapter below.  | 
+| `language` | No | String | The language used for the query (refer to next row). Default: `NXQL` | 
+| `query` | Yes | String | The query is used to locate documents in the repository and should include an exclusion criterion for documents that have already been processed. For syntax refer to [Nuxeo Documentation - NXQL](https://doc.nuxeo.com/nxdoc/nxql/). |
+| `properties` | No | String | A comma-separated list of properties to be returned from the documents of the query above. Only these data will be available in the result. Default: `*` (returns all properties) | 
+| `sortBy` | No | String | The property name to sort the result set in the query. | 
+| `sortOrder` | No | String | The sort order used to sort the property specified in `sortBy`. Options are `ASC` for ascending or `DESC` for descending. Default: `DESC`  | 
 
-> Do not forget to specify an exclusion criterion for the documents in the `query`!
 
-> If you use multiple `YAML` files with same logic but for different [SAP Content Repository Connections]/configuration/aqilink/#sap-http-content-server-connection), make sure to include and exclude the values of the SAP Repository Connections in the files according your needs. Query excerpt to exclude documents arrived via SAP Content Repository Connection `attachments-mySAP`:
-
+When using multiple `YAML` files with the same logic for different [SAP Content Repository Connections](/configuration/aqilink/#sap-http-content-server-connection), ensure to include the `name` of the *SAP Repository Connection* as criteria in the query to process only documents from the related source. The `name` is stored in property `source` of the `sapHttpContent` facet.
+For example, if the `name` of the *SAP Repository Connection* is `nuxeo-al`, the query can be adapted as follows:
 ```
-... AND sapHttpContent:source <> 'attachments-mySAP'
+... WHERE sapHttpContent:source = 'nuxeo-al' AND ...
 ```
-
-
-#### Example
-This configuration of the `query` property will find all documents stored from SAP in Nuxeo that has not yet the `fct_sap_replicate_details` facet (which is the exclusion criterion for the Task).
+Example Nuxeo query with all properties:
 ```
 query:
   type: nuxeo
   language: NXQL
-  query: SELECT * FROM Document WHERE ecm:primaryType = 'File' AND ecm:mixinType = 'fct_sap_http_content' AND ecm:mixinType <> 'fct_sap_replicate_details' AND ecm:isTrashed = 0
+  query: SELECT * FROM File WHERE sapHttpContent:source = 'nuxeo-al' AND ecm:mixinType = 'fct_sap_http_content' AND ecm:mixinType <> 'fct_sap_replicate_details' AND ecm:isTrashed = 0 AND sapTaskStatus:status <> 'Error'
+  properties: '*'
+  sortBy: 'dc:created'
+  sortOrder: 'DESC'
+
+```
+
+#### Microsoft SharePoint specification
+This chapter outlines the available settings of the `query` property when using Microsoft SharePoint Online as repository.
+
+| Property      | Mandatory | Type | Description |
+| ----------- | ----------- |----------- | ----------- | 
+| `type` | Yes | String | Set value to `sharepoint`. For Hyland Nuxeo refer to the chapter above.  | 
+| `query` | Yes | String | The query used to find documents in SharePoint. Should include an exclusion criterion for documents that have already been processed. For syntax refer to [SharePoint Documentation - KQL](https://learn.microsoft.com/en-us/sharepoint/dev/general-development/keyword-query-language-kql-syntax-reference). |
+
+When using multiple `YAML` files with the same logic for different [SAP Content Repository Connections](/configuration/aqilink/#sap-http-content-server-connection), ensure to include the `name` of the *SAP Repository Connection* as criteria in the query to process only documents from the related source. The `name` is stored in the managed property `SAPSourceOWSTEXT`.
+Additionally, it is strongly advised to include the SharePoint site name in the query, as a single `source` from different SAP systems may point to various sites. This precaution helps prevent the accidental processing of documents from unintended SAP systems.
+
+For example, query for documents with value `sharepoint-al` as `source` name for the *SAP Repository Connection* in site `sap`:
+```
+...  AND SAPSourceOWSTEXT:"sharepoint-al" AND SPSiteURL:"https://<tenant>.sharepoint.com/sites/sap"
+```
+Example SharePoint query with all properties:
+```
+query:
+  type: sharepoint
+  query: (ContentType:"SAP Component") AND SAPSourceOWSTEXT:"sharepoint-al" AND SAPComponentIDOWSTEXT:"data" AND SPSiteURL:"https://<tenant>.sharepoint.com/sites/sap"
 ```
 
 ### Property `mapping`
@@ -147,25 +172,25 @@ Specification of the available content properties used for `importParams`, `expo
 
 
 ###### Using `script` parameter
-Use the `script` parameter to alter the value with JavaScript functionality. This can be useful if the value needs to be parsed and/or formatted to match a target format. Dealing with date objects and boolen values are possible use cases for using this parameter.
+Use the `script` parameter to modify the value using JavaScript functionality. This is beneficial when the value requires parsing and formatting to meet a specific format. Handling *Date* objects and *Boolean* values are examples of situations where this parameter can be effectively utilized.
 
-The following properties will be passed to the `script` and can thus be accessed within it.
+The following properties will be passed to the `script`, allowing them to be accessed within it.
 
 | Property      | Description |
 | ----------- |  ----------- | 
 | `logger` | The logger instance. Can be used to log various activities within the script.  | 
 | `props` | The properties of the current document being processed by the function module.   | 
-| `dateFns` | Used if the value should be formatted as a date or parsed from a date. You can use any functions of the [date-fns](https://date-fns.org/) library.  | 
+| `dateFns` | Use this if the value needs to be formatted as a date or parsed from a date. You can utilize any function from the [date-fns](https://date-fns.org/) library.  | 
 | `content` | The content of the currently processed property in the configuration includes `target`, `content`, and, if present, `script` and `constant`.  | 
-| `value` | The value from the `source` parameter.    | 
+| `value` | The value from the `target` parameter when used in the context of *importParams*, or from the `source` parameter in the context of *exportParams*.    | 
 
-1) Example mapping to send a date from Nuxeo to SAP.
+1) Example mapping to send a *Date* from Nuxeo to SAP.
    
 * Value for `dc:created` in Nuxeo: `2022-12-24T11:59:06.375Z`
 * Pattern used to parse this as date: `yyyy-MM-dd'T'HH:mm:ss.SSSxxx`
-* Pattern used to format the parsed date to match the format of the SAP import parameter (type 'DATS'): `yyyyMMdd`
+* Pattern used to format the parsed date to match the format of the SAP import parameter (type [*DATS*](https://help.sap.com/doc/abapdocu_750_index_htm/7.50/en-US/abenddic_date_time_types.htm)): `YYYYMMDD`
 
-The related `script` parameter for an import parameter can look like:
+The corresponding `script` parameter for the import parameter `AR_DATE`, used to invoke the function module `ARCHIV_CONNECTION_INSERT` with the *Date* from Nuxeo, will look like:
 ```
 ...
   sapFunctions:
@@ -177,12 +202,11 @@ The related `script` parameter for an import parameter can look like:
           ...
 ```
 
-2) Example mapping to send a boolean value to SAP.
+2) Example mapping to send a *Boolean* value to SAP.
 
 In SAP ABAP, the concept of a `Boolean` data type does not exist. Instead, ABAP uses integer types or character types to represent boolean values. Typically, a single character type `CHAR(1)` is used, with `'X'` representing *true* and a space `' '` representing *false*. 
 
-The related `script` parameter for an import parameter which handles a `Boolean` can look like: 
-
+The corresponding `script` parameter for the import parameter `LATE` in structure `DOCUMENT_ENTRY`, used to invoke the function module `ARCHIV_PROCESS_RFCINPUT` with the *Boolean* value from Nuxeo, will look like:
 ```
 ...
   sapFunctions:
@@ -196,11 +220,10 @@ The related `script` parameter for an import parameter which handles a `Boolean`
 
 
 #### Property `success`
-This property is a child of the [`mapping` property](#property-mapping) and can be used to handle the SAP function module call in any success case. For example, use this property to set an exclusion criterion to prevent the next Task run to pick up the document again (refer to [Property `query`](#property-query) above).
-To define the `success` property refer to the [Content Properties](#content-property) specification above.
+This property, a child of the [`mapping` property](#property-mapping), is utilized to manage the SAP function module call in successful scenarios. For instance, it can be employed to establish an exclusion criterion that prevents subsequent Task runs from reprocessing the same document (as referenced in the [Property `query`](#property-query) above).
 
 ##### Example
-This configuration will add the `aqilink` "SAP Task Status" facet (`fct_sap_task_status`) to the document and set the `status` property of it to the constant *Success* and the `error` property of the facet to constant *No Error*.
+This configuration will add the **`aqilink`** "SAP Task Status" facet (`fct_sap_task_status`) in Nuxeo to the document if it is not already present. It will then set the `status` property of the facet to the constant value *Success* and the error property to *No Error*.
 ```
 success:
   - source: 'Success'
@@ -212,10 +235,10 @@ success:
 ```
 
 #### Property `failure`
-This property is a child of the [`mapping` property](#property-mapping) and can be used to handle any errors returned by the SAP function module. To define the `success` property refer to the [Content Properties](#content-property) specification.
+Similar to the `success` property, the `failure` property is also a child of the [`mapping` property](#property-mapping). However, in contrast, it is used to manage any errors returned by the SAP function module (or REST call).
 
 ##### Example
-This configuration will add the `aqilink` "SAP Task Status" facet (`fct_sap_task_status`) to the document and set the `status` property of it to the constant *Error* . The `error` property of the facet is set to the value of the parameter `MESSAGE` returned as *Exception* in the *Exceptions* tab of the SAP function module (note: `constant` is `false` in this case).
+This configuration will add the **`aqilink`** "SAP Task Status" facet (`fct_sap_task_status`) in Nuxeo to the document if it is not already present. It will then set the `status` property of the facet to the constant value *Error* and the value of the `error` property to the value of the SAP parameter `MESSAGE` that is returned as *Exception* in the *Exceptions* tab of the SAP function module.
 ```
   failure:
     - source: 'Error'
