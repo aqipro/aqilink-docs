@@ -3,7 +3,7 @@ Information about the latest **`aqilink`** release as well as the product suppor
 
 ## Release Notes `aqilink 22.0`
 
-> Release Date: May, 25<sup>th</sup>, 2022
+> Release Date: January, 17<sup>th</sup>, 2023
 
 ### Features
 New features / enhancements in this release:
@@ -24,4 +24,4 @@ This tables shows the support status of the **`aqilink`** releases.
 
 | Release      | Supported Nuxeo Versions | Supported SAP Versions | Support Status | End of Maintenance |
 | ----------- | ----------- |----------- |----------- |----------- |
-| **`22.0`** | LTS2019, LTS2021 | SAP ECC6, S/4HANA 2020, S/4HANA 2021 | _Full Support_ | May 2025 |
+| **`22.0`** | LTS2019, LTS2021, LTS2023 | SAP ECC6, S/4HANA 2020, S/4HANA 2021 | _Full Support_ | May 2025 |
