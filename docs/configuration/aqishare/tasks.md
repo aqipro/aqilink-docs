@@ -1,6 +1,5 @@
 # Tasks
-
-Tasks are finally the actions, that are executed against the SAP system and that contains either the RFC or the Rest service call along with necessary property mappings. Each action has to be defined in a separate file under the `config/tasks/` folder of `aqilink`. The file name can be set to any name but it's recommended that the name should briefly contain a short hint of the task inside (such as *barcode_S4H.yaml* or *replicateMetadata.yaml* or *startWorkflow_S4H.yaml* ). 
+Tasks are essentially actions executed against the SAP system, containing either an RFC or a REST service call, along with necessary property mappings. Each action must be defined in a separate file located in the `config/tasks/` folder of **`aqilink`**. The file name can be arbitrary, but it is recommended to choose a name that briefly hints at the task it represents (e.g., `barcode_S4H.yaml`, `replicateMetadata.yaml`, or `startWorkflow_S4H.yaml`). The structure of each Task file must adhere to the properties outlined below.
 
 ## Main Level Properties
 
@@ -12,36 +11,36 @@ Tasks are finally the actions, that are executed against the SAP system and that
 | `sap` | Yes | String | The SAP system to which the task should connect to. Must match the value of `name` property in  [SAP Connection Properties](/configuration/aqishare/sap-connection.md). | 
 | `trigger` | Yes | Object | Defines the execution of the task either by a CRON expression or an access key to trigger the task manually.<br/>[Refer below to Property `trigger` specification](#property-trigger). | 
 | `query` | Yes | Object | Defines the query which will be executed in the repository to retrieve data that should be processed.<br/> [Refer below to Property `query` specification](#property-query).|
-| `mapping` | Yes | Object | Specifies the SAP function module or Rest service and define the property mapping which should be passed to SAP and the property mapping of the result to the properties of the repository.<br/> [Refer below to Property `mapping` specification](#property-mapping). |
-| `attempts` | No | Number | The total number of attempts to try the job until it completes. If exceeded the document will be excluded for each new run. Default: `3`  |
-| `backoff` | No | Number | Backoff setting for automatic retries if the job fails in Milliseconds. Needs `attempts` to be set. Default: `600000` (10 min)  |
+| `mapping` | Yes | Object | Specifies the SAP function module or REST service, and defines the property mapping to be passed to SAP, as well as the property mapping of the result to the repository's properties.<br/> [Refer below to Property `mapping` specification](#property-mapping). |
+| `attempts` | No | Number | The total number of attempts to try the job until completion. If this number is exceeded, the document will be excluded from each subsequent run. Default: `3`  |
+| `backoff` | No | Number | Backoff setting in milliseconds for automatic retries if the job fails. This requires the previouse mentioned `attempts` setting to be configured. Default value: `600000` (10 min)  |
 | `removeOnComplete` | No | Boolean, Number, KeepJobs | If `true` or unset, removes the job when it successfully completes from the [Bull Queue](/installation/app-configuration?#queue-monitoring) (default behavior). If set to a number, the specified number of jobs will be retained. For KeyJobs, refer to the [KeyJobs interface](https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#keepjobs-options).  |
 
 ### Property `trigger`
-The `trigger` property defines how the task can be executed. This can be either done automatically using a CRON expression or manually by invoking the task with an access key.
-
+An arbitrary token is used to manually trigger the task from any third-party system. Ensure that each task has a unique token. It is advisable to use a randomly generated token with at least 15 characters.
 
 | Property      | Mandatory | Type | Description |
 | ----------- | ----------- |----------- | ----------- | 
-| `cron` | No | String | The CRON expression used to invoke the task automatically.   | 
+| `cron` | No | String | The CRON expression is used to automatically invoke the task.   | 
 | `accessToken` | No | String | An arbitrary token used to trigger the task manually from any third-party system. Make sure to use an unique token across each task. Make sure to use a randomly generated token with at least 15 characters. | 
 
-> You must set at least one of both properties.
-
-#### Trigger Tasks manually using `accessToken`
-To trigger a Task manually, an `accessToken` must be specified. The value of this token has to be passed in the `AppAuth` header of the request. Then endpoint on the `aqilink` server is the `/task/` folder followed by the name of the Task file without file extension. If you dont want to trigger the Task from outside at all, remove the `accessToken` property.
-
-```
-  curl --location --request GET 'http://<aqilink-server>:3000/task/myTask1' \
-      --header 'App-Auth: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1Z' 
-```
+> You must set at least one of the two properties.
 
 #### Example
-This example configuration of the `trigger` property demonstrates the usage with a CRON expression (running every full minute) and the possibility to trigger the Task at any time from outside using the `accessToken`.
+This example configuration of the `trigger` property illustrates its use with a CRON expression (set to run every full minute) and the option to trigger the Task at any time externally using an `accessToken`.
 ```
 trigger:
   cron: '* * * * *'
   accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1Z'
+```
+
+#### Manually trigger a Task using an `accessToken`
+To manually trigger a Task, an `accessToken` must be specified. The value of this token should be included in the `AppAuth` header of the request. The endpoint on the **`aqilink`** server is `/tasks/`, followed by the name of the Task file, excluding the file extension. If you do not wish to trigger the Task externally, remove the `accessToken` property. <br/>
+Assuming the Task is defined in the file */tasks/barcode_S4H.yaml* and the `accessToken` is set to the value from the example above, the request should be formatted as follows:
+
+```
+  curl --location --request GET 'http://<aqilink-server>:3000/tasks/barcode_S4H' \
+      --header 'App-Auth: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1Z' 
 ```
 
 ### Property `query`
@@ -102,17 +101,17 @@ query:
 ```
 
 ### Property `mapping`
-The `mapping` property defines the assignment of properties between the repository and the desired RFC function module or Rest service, which are required to run the action on SAP side. It also defines the return mapping, meaning, the assignment of return values to properties in the repository. 
+The `mapping` property defines the assignment of properties between the repository and the desired RFC function module or Rest service, which are required to run the action on SAP side. It also outlines the return mapping, which is the assignment of return values to properties in the repository. 
 
 | Property      | Mandatory | Type | Description |
 | ----------- | ----------- |----------- | ----------- | 
-| `type` | Yes | String | The connection type to be used to invoke SAP. To call function modules through RFC, use `rfc`. To call a Rest (OData) service use `rest`.   | 
-| `sapFunctions` | Yes | Object | The object containing the property assignments. | 
-| `success` | Yes | Object | Handle the success case of the SAP return. |
-| `failure` | Yes | Object | Handle the error case of the SAP return. |  
+| `type` | Yes | String | The connection type to be used for invoking SAP. Use `rfc` to call function modules through RFC. For calling a REST (OData) service, use `rest`. | 
+| `sapFunctions` | Yes | Object | The object containing the property assignments. [Refer below to Property `sapFunctions` specification](#property-sapfunctions). | 
+| `success` | Yes | Object | Handle the success case of the SAP return. [Refer below to Property `success` specification](#property-success). |
+| `failure` | Yes | Object | Handle the error case of the SAP return. [Refer below to Property `failure` specification](#property-failure). |  
 
 #### Property `sapFunctions`
-This property is a child of the [`mapping` property](#property-mapping) and contains the assignments of all properties from the repository that must be mapped to import parameter of the SAP function module. It also handles the return mapping, meaning, which properties from the result should be mapped to which properties of the document in the repository.
+This property, a subset of the [`mapping` property](#property-mapping), includes the assignments of all properties from the repository that must be mapped to the import parameters of the SAP function module. It also manages the return mapping, which involves determining which properties from the result should be mapped to specific properties of the document in the repository.
 
 | Property      | Mandatory | Type | Description |
 | ----------- | ----------- |----------- | ----------- | 
