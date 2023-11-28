@@ -44,7 +44,7 @@ Follow these steps to create a new SAP Content Repository connected to **`aqilin
 6) The basic HTTP connection is working now.
 
 ## Create Content Repository in SharePoint
-The repository must be created on in SharePoint Online as well. 
+The repository must be created in SharePoint Online as well. 
 
 1) Click on icon *--> CS Admin* (*C*ontent *S*erver *Admin*istration) in the middle of the screen, besides the *Test connection* icon. Refer to image in step 3) of the previous section.
 2) Create the repository in SharePoint using the *Create repository* icon in the *Create* section (highlighted in `Orange` below). All settings in this screen can be left with their defaults.
