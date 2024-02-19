@@ -67,6 +67,8 @@ The below table lists all available parameters for the `storage.yaml` to establi
 ### Microsoft SharePoint Online (SPO)
 The below table lists all available parameters for the `storage.yaml` to establish a connection to a Microsoft SharePoint Online site. For example configurations refer to the [related part in the Reference section](../reference/s3-reference-configs#example-configuration-for-storageyaml).
 
+* To ensure a successful connection with SharePoint Online, make sure you have completed the chapter [Create Microsoft Azure Application](/configuration/storages/sharepoint/azure)!
+
 | Parameter      | Mandatory | Description | Example |
 | ----------- | ----------- |----------- | ----------- | 
 | ``name`` | Yes | Must match the exact name as provided for parameter `storage` in the [SAP Content Server Connection](#sap-http-content-server-connection) (`sapHttp.yaml`).       |  `ms-sharepoint-archive` |
@@ -76,7 +78,7 @@ The below table lists all available parameters for the `storage.yaml` to establi
 | ``sharepointUrl`` | Yes | The Url of the SharePoint tenant.      | `https://mycompany.sharepoint.com` |
 | ``tenantName`` | Yes | The tenant name of SharePoint.       | `mycompany` |
 | ``siteName`` | Yes | The site name in the tenant to store documents from SAP.       | `sapdemo` |
-| ``tenantId`` | Yes| The unique tenant ID. This information can be found in the Azure AD Admin Center. [Microsoft documentation: Find your Microsoft 365 tenant ID](https://learn.microsoft.com/en-us/sharepoint/find-your-office-365-tenant-id)      | `<TenantId>` |
-| ``clientId`` | Yes |  The client Id, related to the Certificate of the registered [App in the Azure AD](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps).      | `<ClientId>` |
-| ``thumbprint`` | Yes | Related to the Certificate of the registered [App in the Azure AD](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps).     | `<ThumbprintId>` |
-| ``privateKey`` | Yes | The private key of the Certificate of the registered [App in the Azure AD](https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps). | `<PrivateKey>`  |
+| ``tenantId`` | Yes| The tenant ID of the Azure AD application. Refer to chapter [Create Microsoft Azure Application](/configuration/storages/sharepoint/azure) | `<TenantId>` |
+| ``clientId`` | Yes |  The client Id of the Azure AD application. Refer to chapter [Create Microsoft Azure Application](/configuration/storages/sharepoint/azure) | `<ClientId>` |
+| ``thumbprint`` | Yes | The thumbprint of the certificate for the registered Azure AD application. Refer to chapter [Create Microsoft Azure Application](/configuration/storages/sharepoint/azure) | `<ThumbprintId>` |
+| ``privateKey`` | Yes | The private key of the certificate used for the registered Azure AD application. Refer to chapter [Create Microsoft Azure Application](/configuration/storages/sharepoint/azure) | `<PrivateKey>`  |
