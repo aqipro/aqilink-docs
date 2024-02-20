@@ -1,5 +1,6 @@
 # Step-by-step: Connect SAP with SharePoint
-Read this chapter to learn how to connect Microsoft SharePoint Online via **`aqilink`** as SAP Content Repository. Make sure you're familiar with the configuration for [SAP Content Repository Connection](/installation/#sap-http-content-server-connection) and [Storage Connection](/configuration/aqishare/#storage-connections) before, as this is a prerequisite.
+Read this chapter to learn how to connect Microsoft SharePoint Online via **`aqilink`** as SAP Content Repository. 
+Ensure you are familiar with the configurations for [SAP Content Repository Connection](/installation/#sap-http-content-server-connection) and [Storage Connection](/configuration/aqishare/#storage-connections) beforehand, as these are prerequisites. Also, make sure you have completed the [application registration in Microsoft Azure AD](/configuration/storages/sharepoint/azure).
 
 ### HTTPS preferred connection
 For the connection between SAP and SharePoint, we recommend preferring HTTPS over HTTP. 
@@ -9,7 +10,7 @@ HTTPS ensures that data is encrypted during transit, thereby preventing unauthor
 ## Create SAP Content Repository
 Follow these steps to create a new SAP Content Repository connected to **`aqilink`**.
 
-> Use a SAP dialog user with Administration permission.
+!> Use a SAP dialog user with Administration permission.
 
 1) Login to SAP and execute the following transaction: `OAC0`. It will display a list of all available SAP Content Repositories in the SAP system.
 2) To create a new SAP Content Repository switch to *Edit* mode (`CTRL`+`F4` ), then press `F5`.  
@@ -37,9 +38,9 @@ Follow these steps to create a new SAP Content Repository connected to **`aqilin
 
    ![SAP Customizing: OAC0 Test Connection](../../../_media/sap_customizing/sharepoint/0002_oac0_create_test_connection.png)
 
-   > If you receive any other message than the above one, make sure the connection to the **`aqilink`** server is working. In case of a message similar like *`Payment required`* make sure to have entered the (valid) [license key](/installation/app-configuration?id=enter-license-key). 
+   !> If you receive any other message than the above one, make sure the connection to the **`aqilink`** server is working. In case of a message similar like *`Payment required`* make sure to have entered the (valid) [license key](/installation/app-configuration?id=enter-license-key). 
    
-   > In case of any *Handshake* or *SSL* related exception, check your HTTPS settings. Refer to [Communication via HTTPS](/reference/aqilink_sap_https) 
+   !> In case of any *Handshake* or *SSL* related exception, check your HTTPS settings. Refer to [Communication via HTTPS](/reference/aqilink_sap_https) 
 
 6) The basic HTTP connection is working now.
 
@@ -60,7 +61,7 @@ The repository must be created in SharePoint Online as well.
 ## Secure Connection using Certificate
 Secure the connection between SAP and SharePoint by using a certificate that will be stored in SharePoint, allowing only authorized requests from the SAP Content Repository.
 
-> We strongly recommend securing the connection between SAP and SharePoint at all times.
+!> We strongly recommend securing the connection between SAP and SharePoint at all times.
 
 1) Click on section *Certificates*.
 2) Send the certificate by clicking on the envelope icon.
@@ -73,13 +74,13 @@ Secure the connection between SAP and SharePoint by using a certificate that wil
 
 4) Enable security by activating the certificate in SharePoint.
 
-   > According to the SAP HTTP-Content Server protocol specification, the certificate can only be activated from the content repository side, serving as an additional security measure. Therefore, no further action is required in SAP. To proceed with the activation, log in to the related SharePoint site.
+   !> According to the SAP HTTP-Content Server protocol specification, the certificate can only be activated from the content repository side, serving as an additional security measure. Therefore, no further action is required in SAP. To proceed with the activation, log in to the related SharePoint site.
 
    4.1 Login to the related site in SharePoint as site owner (or with *full control* permission).
 
    4.2 Navigate to the customized **`aqilink`** administration folder which holds all the repository files and certificates from the SAP system. Refer to value of setting `adminPath` in the related [Storage Connections](/configuration/aqilink/#microsoft-sharepoint-online-spo) chapter.
 
-   > Under this `adminPath`, you will find a folder named with the value you entered as [SAP HTTP-Content Server Connection](/configuration/aqilink/#sap-http-content-server-connection) for the`HTTP Script` during the repository creation mentioned above. The folder's name is also concatenated with the name of the content repository itself.
+   !> Under this `adminPath`, you will find a folder named with the value you entered as [SAP HTTP-Content Server Connection](/configuration/aqilink/#sap-http-content-server-connection) for the`HTTP Script` during the repository creation mentioned above. The folder's name is also concatenated with the name of the content repository itself.
    
    ![SharePoint Administration: Activate Certificate](../../../_media/sap_customizing/sharepoint/0007_spo_adminpath.png)
 
@@ -122,6 +123,6 @@ This section describes how `aqilink`, and therefore the ArchiveLink interface, c
 
    ![SAP Functional Test: RSCMST Sub-reports 123](../../../_media/sap_customizing/sharepoint/0013_se38_execute_rscmsth123.png)
 
-   > There is a known issue in the `RSCMSTH2` report in SAP BASIS components 740 to 752. If this report returns with a lot of errors regarding document protection like `DOC_P[rc]`, refer to the following SAP OSS notes: 2371386, 2198970. Skip this report unless the notes are implemented.
+   !> There is a known issue in the `RSCMSTH2` report in SAP BASIS components 740 to 752. If this report returns with a lot of errors regarding document protection like `DOC_P[rc]`, refer to the following SAP OSS notes: 2371386, 2198970. Skip this report unless the notes are implemented.
 
 Congratulations! You have successfully connected SAP to Microsoft SharePoint Online and have also verified that the technical connection is working correctly. You are now ready to proceed and customize your use-cases in SAP to store documents in the new repository (SharePoint).

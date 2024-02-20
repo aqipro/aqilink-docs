@@ -24,11 +24,11 @@ An arbitrary token is used to manually trigger the task from any third-party sys
 | `cron` | No | String | The CRON expression is used to automatically invoke the task.   | 
 | `accessToken` | No | String | An arbitrary token used to trigger the task manually from any third-party system. Make sure to use an unique token across each task. Make sure to use a randomly generated token with at least 15 characters. | 
 
-> You must set at least one of the two properties.
+!> You must set at least one of the two properties.
 
 #### Example
 This example configuration of the `trigger` property illustrates its use with a CRON expression (set to run every full minute) and the option to trigger the Task at any time externally using an `accessToken`.
-```
+```yaml
 trigger:
   cron: '* * * * *'
   accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1Z'
@@ -38,7 +38,7 @@ trigger:
 To manually trigger a Task, an `accessToken` must be specified. The value of this token should be included in the `AppAuth` header of the request. The endpoint on the **`aqilink`** server is `/tasks/`, followed by the name of the Task file, excluding the file extension. If you do not wish to trigger the Task externally, remove the `accessToken` property. <br/>
 Assuming the Task is defined in the file */tasks/barcode_S4H.yaml* and the `accessToken` is set to the value from the example above, the request should be formatted as follows:
 
-```
+```powershell
   curl --location --request GET 'http://<aqilink-server>:3000/tasks/barcode_S4H' \
       --header 'App-Auth: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1Z' 
 ```
@@ -46,7 +46,7 @@ Assuming the Task is defined in the file */tasks/barcode_S4H.yaml* and the `acce
 ### Property `query`
 The `query` property specifies the query sent to the repository to search for related documents. Given that the underlying repositories differ significantly, necessitating distinct handling approaches, the documentation for this parameter is segregated based on the specific repository to enhance clarity.
 
-> Remember to always include an exclusion criterion for the documents in the `query`! A best practice is to utilize the result value returned by either the [`success`](#property-success) or [`success`](#property-failure) properties.
+!> Remember to always include an exclusion criterion for the documents in the `query`! A best practice is to utilize the result value returned by either the [`success`](#property-success) or [`failure`](#property-failure) properties.
 
 #### Hyland Nuxeo specification
 This chapter outlines the available settings for the `query` property when using a Hyland Nuxeo repository.
@@ -63,11 +63,11 @@ This chapter outlines the available settings for the `query` property when using
 
 When using multiple `YAML` files with the same logic for different [SAP Content Repository Connections](/configuration/aqilink/#sap-http-content-server-connection), ensure to include the `name` of the *SAP Repository Connection* as criteria in the query to process only documents from the related source. The `name` is stored in property `source` of the `sapHttpContent` facet.
 For example, if the `name` of the *SAP Repository Connection* is `nuxeo-al`, the query can be adapted as follows:
-```
+```yaml
 ... WHERE sapHttpContent:source = 'nuxeo-al' AND ...
 ```
 Example Nuxeo query with all properties:
-```
+```yaml
 query:
   type: nuxeo
   language: NXQL
@@ -90,11 +90,11 @@ When using multiple `YAML` files with the same logic for different [SAP Content 
 Additionally, it is strongly advised to include the SharePoint site name in the query, as a single `source` from different SAP systems may point to various sites. This precaution helps prevent the accidental processing of documents from unintended SAP systems.
 
 For example, query for documents with value `sharepoint-al` as `source` name for the *SAP Repository Connection* in site `sap`:
-```
+```yaml
 ...  AND SAPSourceOWSTEXT:"sharepoint-al" AND SPSiteURL:"https://<tenant>.sharepoint.com/sites/sap"
 ```
 Example SharePoint query with all properties:
-```
+```yaml
 query:
   type: sharepoint
   query: (ContentType:"SAP Component") AND SAPSourceOWSTEXT:"sharepoint-al" AND SAPComponentIDOWSTEXT:"data" AND SPSiteURL:"https://<tenant>.sharepoint.com/sites/sap"
@@ -124,7 +124,7 @@ This property is a child of the [`sapFunctions` property](#property-sapfunctions
 
 ###### Example
 This excerpt calls the SAP function module `ARCHIV_GET_CONNECTIONS` and set the import parameter `ARCHIV_ID` to the value of the property `sapHttpContent:archiveId` and `ARC_DOC_ID` to the value of `sapHttpContent:docId` from the current document.
-```
+```yaml
 mapping:
   type: rfc
   sapFunctions:
@@ -139,13 +139,13 @@ mapping:
 ##### Property `exportParams`
 This property is a child of the [`sapFunctions` property](#property-sapfunctions). It defines the mapping between the export parameter of the SAP Function Module and the repository properties using a list of [Content Properties](#content-property). In this case, the `source` is a name of an export parameter from the SAP function module return and the `target` is a property in the repository. Properties in the export parameter structure can be addressed by JSON syntax.
 
-> Address properties in the SAP function module return with JSON syntax.
+!> Address properties in the SAP function module return with JSON syntax.
 
-> To store properties where the related Facet is not yet on the document, add the Facet name as prefix for the `target` value. 
+!> To store properties where the related Facet is not yet on the document, add the Facet name as prefix for the `target` value. 
 
 ###### Example
 This excerpt handle the result of the SAP function module `ARCHIV_GET_CONNECTIONS` and saves the `OBJECT_ID` into field `sapObjectId` and `SAP_OBJECT` into field `sapObject` of the current document. As the `OBJECT_ID` is returned in a table called `CONNECTIONS` that has only one result line, the `source` parameter must be set to `CONNECTIONS.0.OBJECT_ID`. 
-```
+```yaml
 mapping:
   type: rfc
   sapFunctions:
@@ -190,7 +190,7 @@ The following properties will be passed to the `script`, allowing them to be acc
 * Pattern used to format the parsed date to match the format of the SAP import parameter (type [*DATS*](https://help.sap.com/doc/abapdocu_750_index_htm/7.50/en-US/abenddic_date_time_types.htm)): `YYYYMMDD`
 
 The corresponding `script` parameter for the import parameter `AR_DATE`, used to invoke the function module `ARCHIV_CONNECTION_INSERT` with the *Date* from Nuxeo, will look like:
-```
+```yaml
 ...
   sapFunctions:
     - name: ARCHIV_CONNECTION_INSERT
@@ -206,7 +206,7 @@ The corresponding `script` parameter for the import parameter `AR_DATE`, used to
 In SAP ABAP, the concept of a `Boolean` data type does not exist. Instead, ABAP uses integer types or character types to represent boolean values. Typically, a single character type `CHAR(1)` is used, with `'X'` representing *true* and a space `' '` representing *false*. 
 
 The corresponding `script` parameter for the import parameter `LATE` in structure `DOCUMENT_ENTRY`, used to invoke the function module `ARCHIV_PROCESS_RFCINPUT` with the *Boolean* value from Nuxeo, will look like:
-```
+```yaml
 ...
   sapFunctions:
     - name: ARCHIV_PROCESS_RFCINPUT
@@ -223,7 +223,7 @@ This property, a child of the [`mapping` property](#property-mapping), is utiliz
 
 ##### Example
 This configuration will add the **`aqilink`** "SAP Task Status" facet (`fct_sap_task_status`) in Nuxeo to the document if it is not already present. It will then set the `status` property of the facet to the constant value *Success* and the error property to *No Error*.
-```
+```yaml
 success:
   - source: 'Success'
     constant: true
@@ -238,7 +238,7 @@ Similar to the `success` property, the `failure` property is also a child of the
 
 ##### Example
 This configuration will add the **`aqilink`** "SAP Task Status" facet (`fct_sap_task_status`) in Nuxeo to the document if it is not already present. It will then set the `status` property of the facet to the constant value *Error* and the value of the `error` property to the value of the SAP parameter `MESSAGE` that is returned as *Exception* in the *Exceptions* tab of the SAP function module.
-```
+```yaml
   failure:
     - source: 'Error'
       constant: true
@@ -247,4 +247,3 @@ This configuration will add the **`aqilink`** "SAP Task Status" facet (`fct_sap_
       constant: false
       target: 'fct_sap_task_status:sapTaskStatus:error'
 ```
-

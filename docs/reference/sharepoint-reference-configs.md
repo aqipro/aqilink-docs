@@ -1,11 +1,11 @@
 # Reference for Configuration Files
 
-The below reference contains examples of ```aqilink``` configuration files related to Microsoft SharePoint Online (SPO).
+The below reference contains examples of **`aqilink`** configuration files related to Microsoft SharePoint Online (SPO).
 
 ## Example Configuration for ```sapHttp.yaml```
 Example how the content of `sapHttp.yaml` can look like to connect to an Amazon S3 bucket.
 
-```
+```yaml
 - name: sharepoint-archive
   storage: spo-archivelink
   signatureEnabled: true
@@ -13,7 +13,7 @@ Example how the content of `sapHttp.yaml` can look like to connect to an Amazon 
 
 ## Example Configuration for ```storage.yaml```
 Example how the content of `storage.yaml` can look like to connect to a Microsoft SharePoint Online site.
-```
+```yaml
 - name: spo-archivelink
   type: sharepoint
   adminPath: SAPRepositories/

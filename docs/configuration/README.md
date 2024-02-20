@@ -9,7 +9,7 @@ Before proceeding, let's familiarize ourselves with the *Document Exchange* and 
 | *Document Exchange* (**``aqilink``**) | The *Document Exchange* is the SAP-certified component of the product. It handles all the traffic **from** the SAP HTTP-Content-Server **to** the associated repository. Since this is the primary component, it shares the same name as the product itself: **`aqilink`**.  | ``sapHttp.yaml``,<br/>``storage.yaml`` |
 | *Data Exchange* (**``aqishare``**) | The *Data Exchange* component is responsible for all metadata-related actions, starting **from** the associated repository and connecting **to** a desired SAP system. It can be used to trigger any action in the related SAP system by calling Rest services (OData) or by calling function modules through RFC. This component is also known as **`aqishare`**.   | ``sapConnection.yaml``, <br/> ``storage.yaml``, <br/> ``/tasks/myTask1.yaml``, <br/> ``/tasks/myTask2.yaml``, <br/> ... |
 
-> Note: The *Data Exchange* (``aqishare``) component needs to be licensed separately.
+!> Note: The *Data Exchange* (``aqishare``) component needs to be licensed separately.
 
 ## Configuration Files Overview <!-- {docsify-ignore} -->
 The table below lists all available configuration files and their purposes. As mentioned above, these files are in `YAML` format.

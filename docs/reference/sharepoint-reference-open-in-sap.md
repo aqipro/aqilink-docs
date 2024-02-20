@@ -7,12 +7,13 @@ The feature *Open SAP Business Object* allows the user in SharePoint Online to o
 1) The related `*.sppkg` package which includes this feature was installed and added as App to a Document Library.
 2) To login to the SAP WebGUI the user needs SAP credentials.
 3) The metadata replication is enabled and all metadata, required to invoke the desired SAP transaction, are present on the document.
-      > **Note:** The document must be indexed by SharePoint before the [CRON expression in the Task](/configuration/aqishare/tasks#property-trigger) is able to find it and therefore to replicate metadata! Usually it takes up to 15 minutes or more until a document is indexed by SharePoint.
 4) The document in SharePoint must be of type `SAP Replicate` (will be changed automatically if the metadata replication was successful).
 5) All metadata, required to invoke the SAP Object Type within the associated SAP transaction code, must be present at the document.
 6) The configuration file (`*.webgui.json`, see below) for the feature was created. In this file:
    1) the repository is enabled to open the SAP WebGUI
    2) the SAP transaction for the SAP Object Type is maintained
+
+!> **Note:** The document must be indexed by SharePoint before the [CRON expression in the Task](/configuration/aqishare/tasks#property-trigger) is able to find it and therefore to replicate metadata! Usually it takes up to 15 minutes or more until a document is indexed by SharePoint.
 
 ## Administration
 The feature can be configured for each available SAP Content Repository in SharePoint (combination of SAP Source and SAP ArchiveID. To enable the command for all documents from a SAP Content Repository, follow these steps:
@@ -77,7 +78,8 @@ If the feature is enabled, this is the user experience in SharePoint Online:
 
 1) The user navigates to a document that has been stored from SAP and that has additional metadata from SAP available. 
 2) In the Document Library the new action command *Open SAP Business Object* is available in the menu.
-   > The command is only visible if one document (and only one) of Content Type `SAP Replicate` is selected.
+
+!> The command is only visible if one document (and only one) of Content Type `SAP Replicate` is selected.
 
    ![UX Open in SAP SPO](../_media/reference/sharepoint/open_in_sap_user.png)
 

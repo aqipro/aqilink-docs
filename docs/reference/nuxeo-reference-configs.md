@@ -1,20 +1,19 @@
 # Reference for Configuration Files
 
-The below reference contains examples of ```aqilink``` configuration files related to Nuxeo.
+The below reference contains examples of **`aqilink`** configuration files related to Nuxeo.
 
 ## Example Configuration for ```sapHttp.yaml```
 Example how the content of `sapHttp.yaml` can look like to connect to a Nuxeo repository.
 
-```
+```yaml
 - name: nuxeo-attachments
   storage: nuxeo-att
   signatureEnabled: true
-
 ```
 
 ## Example Configuration for ```storage.yaml```
 Example how the content of `storage.yaml` can look like to connect to a Nuxeo repository.
-```
+```yaml
 - name: nuxeo-att
   type: nuxeo
   domain: default
@@ -25,4 +24,4 @@ Example how the content of `storage.yaml` can look like to connect to a Nuxeo re
   documentPath: /default-domain/workspaces/sap/sap_documents/SAP-Attachments
 ```
 
-> The example use an encrypted password instead of plain text. Refer to [Password Encryption](/reference/password-encryption.md).
+!> The example use an encrypted password instead of plain text. Refer to [Password Encryption](/reference/password-encryption.md).

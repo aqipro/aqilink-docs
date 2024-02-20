@@ -1,5 +1,5 @@
 # Create Microsoft Azure Application
-Follow these steps to create and register a Microsoft Azure application along with all required permission before proceeding with the next chapter [Connect SAP with SharePoint](./sharepoint.md).
+Follow these steps to create and register a Microsoft Azure, including all required permissions, before proceeding to the next chapter, [Connect SAP with SharePoint](./sharepoint.md). Note that some outputs of the created Azure AD application are crucial for the configuration in **`aqilink`** as they must be provided to the [Storage Connection](/configuration/aqishare/#storage-connections).
 
 ## Register the Application in Azure AD
 Follow these steps to create and register the application in Azure AD.

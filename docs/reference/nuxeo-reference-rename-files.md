@@ -19,19 +19,19 @@ Edit the properties of the `.repo` file to enable the feature:
 ![Rename 1](../_media/reference/feature_rename_1.png)
 
 
-> Note: Existing documents in Nuxeo are not touched by any change of this setting. The rename will work for new arriving documents only.
+!> Note: Existing documents in Nuxeo are not touched by any change of this setting. The rename will work for new arriving documents only.
 
 ## User Expericence
-Once the feature is enabled, both the *data* file and the parent folder of each incoming SAP ArchiveLink document stored in this repository will be automatically renamed with the original filename stored in SAP. There is no additional action required by the user.
+Once the feature is activated, both the *data* file and its parent folder for each incoming SAP ArchiveLink document stored in this repository will be automatically renamed to match the original filename stored in SAP. No additional action is required from the user.
 
 ### Before renaming
 
-Before enabling the *Rename* feature, the documents stored from SAP looks like below. The filename of the file is just *data* (without any extension) and the parent folder containing the components (such as the *data* document or a SAP note) will have the SAP ArchiveLink Document Id as name.
+Before enabling the *Rename* feature, documents stored from SAP appear as follows: The filename is simply *data* (without any extension), and the parent folder, containing components such as the *data* document or an SAP note, is named after the SAP ArchiveLink Document ID.
 ![Structure before](../_media/reference/feature_rename_3_before_structure.png)
 
 
 ### After renaming
-After the feature is enabled, the names of the folder and the *data* file will become the original filename once the `SAP Replicated Details` facet is available on the document.
+After enabling the feature, the names of the folder and the *data* file will be updated to the original filename once the `SAP Replicated Details` facet becomes available on the document.
 ![Structure after](../_media/reference/feature_rename_4_after_structure.png)
 
 The value of "SAP Filename" from the "SAP Business Object Details" will be used to rename the *data* file and the parent folder. 

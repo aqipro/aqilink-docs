@@ -2,7 +2,7 @@
 
 Below are the environment/software prerequisites to successfully run **`aqilink`**. It also lists the necessary requirement of the related systems.
 
-> Make sure `aqilink`, SAP and the storage system (such as Nuxeo or Amazon S3) are available in the same network, or connected through a VPN.
+!> Make sure **`aqilink`**, SAP and the storage system (such as Nuxeo or Amazon S3) are available in the same network, or connected through a VPN.
 
 
 ## `aqilink`
@@ -42,3 +42,4 @@ To successfully run the SAP certified integration **`aqilink`**, the following r
 
 * Permission to manage a site
 * Access to deploy the content model using PnP-PowerShell
+* Active Microsoft Azure Subscription and administrator access to the Azure Portal. [Learn more](/configuration/storages/sharepoint/azure)

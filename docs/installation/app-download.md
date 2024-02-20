@@ -1,12 +1,12 @@
 # Download
 This section describes how to download the latest **`aqilink`** Docker image as well as related software.
 
-> To download the image or any related software (as listed below) from our delivery portal, a valid license key for **`aqilink`** is required. 
+!> To download the image or any related software (as listed below) from our delivery portal, a valid license key for **`aqilink`** is required. 
 
 ## Download Docker Image
 Use the following URL to download the latest stable **`aqilink`** release:
 
-```
+```yaml
 https://delivery.aqipro.com/api/download/aqilink/<YOUR-LICENSE-KEY>
 ```
 
@@ -15,7 +15,7 @@ https://delivery.aqipro.com/api/download/aqilink/<YOUR-LICENSE-KEY>
 While the most important download is undoubtedly the  **`aqilink`** Docker image, you can download the following additional software from our delivery portal using the URLs provided. Note: Some downloads may only be required if you run the associated storage system.
 
 
-> You must provide a valid license key in the URL to download the software!
+!> You must provide a valid license key in the URL to download the software!
 
 | Software Package | Link | Description | 
 | ----------- | ----------- |----------- |
@@ -29,4 +29,4 @@ The [SAP NetWeaver Remote Function Call (RFC) Software Development Kit (SDK)](ht
 
 Since the **`aqilink`** Docker image is based on a Linux system, the *SAP NetWeaver RFC SDK* for **Linux (linux_64)** needs to be downloaded from the [SAP support portal](https://support.sap.com/en/product/connectors/nwrfcsdk.html). 
 
-> You'll need a valid SAP S-User ID to log in and download the SDK.
+!> You'll need a valid SAP S-User ID to log in and download the SDK.

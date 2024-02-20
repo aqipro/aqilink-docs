@@ -24,7 +24,7 @@ Edit the properties of the `.repo` file to maintain the following settings for t
 | ``WebClient Screen-Personas Theme Id`` | If there is any public Screen-Personas theme available, set the ID of the theme to be used after the user logged in.  |  
 | ``WebClient URL Parameter Mapping`` | The most important part. It contains the mapping of the properties to the related SAP transaction.  |  
 
-> Make sure to replace the placeholder *sap-ip-address* in property `SAP WebClient URL` with the IP or hostname of the SAP server. 
+!> Make sure to replace the placeholder *sap-ip-address* in property `SAP WebClient URL` with the IP or hostname of the SAP server. 
 
 ![Open in SAP](../_media/reference/open_in_sap_repo_1.png)
 
@@ -44,7 +44,8 @@ Once the feature is enabled, this is the user experience in Nuxeo.
 
 1) The user navigates to a document which was stored from SAP. 
 2) A new action command is available on the Document Actions menu.
-   > The command is available as soon as the facet *SAP Replicated Details* is available on the document. Depending on the runtime of the [Task](/configuration/aqishare/tasks) job which adds this facet, this may take some time (the time specified in the [CRON expression](/configuration/aqishare/tasks#property-trigger)).
+
+!> The command is available as soon as the facet *SAP Replicated Details* is available on the document. Depending on the runtime of the [Task](/configuration/aqishare/tasks) job which adds this facet, this may take some time (the time specified in the [CRON expression](/configuration/aqishare/tasks#property-trigger)).
 
 ![UX Open in SAP Nuxeo](../_media/reference/open_in_sap_user_0.png)
 

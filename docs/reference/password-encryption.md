@@ -20,7 +20,7 @@ To encrypt passwords in any of the **`aqilink`** configuration files follow the 
 ### Generate key pair 
 Execute the encryptor tool based based on your system architecture to create a new private key and public key pair. Both keys are stored in separate files within the given directory (in the case below `c:\temp\aqilink\keypair`). Make sure the given directory exists.
 
-```
+```powershell
 .\aqilink-encryptor-win-x64.exe generate c:\temp\aqilink\keypair
 ``` 
 
@@ -31,18 +31,18 @@ To allow the usage of the encrypted passwords based on the the newly created pub
 ### Enable usage
 Once the public key file is available inside the container, ```aqilink``` must know about it to use it. In order to make  ```aqilink``` aware of the file, the path of the public key file in the container must be added to the ```app.yaml``` in the ```/configs/``` directory by specifying the value for property ```publicKeyPath```.
 
-```
+```yaml
 publicKeyPath: /usr/src/app/configs/publicKey.pem
 ```
 
 ### Create encrypted passwords 
 To create encrypted passwords the following command of the encryptor tool has to be used:
-```
+```powershell
 .\aqilink-encryptor.exe encrypt MY_PASSWORD_TO_ENCRYPT --privateKeyPath c:\temp\aqilink\keypair\privateKey.pem
 ```
 
 The output will be like:
-```
+```powershell
 Encrypted Password:
 ENC(lax/tcmsuMMOsQccajvjJdT9pdb4NyluqW+42SC7jiDKUmTLGmHtl+hyL27Z/bainuUKbxfsHggXjLEFWQaoANt/UwkIJT3k0BJZd5yS+i+RcBSPuLNJ52RHxRx65UrAFViV1qLT6gOyT5OnsXRZL1xke8j3HhD2JlRmxOLc/AjiSEeVe4nC190h9d2D6TXeAdq6QoD6TbtvUrI17P4cyqPS3fetgirq7hm6EDjh6eWKHU9i9p9FEi3B8QjZCasLf+5bO/qN7MNcgLXD2gQAHRZYdVoAX+p7oCQ8DT3WemmzLCL1W0VjEul3aE0Yo5mNFOaD+oK89eQi4Q2qNrCqmQ==)
 ```

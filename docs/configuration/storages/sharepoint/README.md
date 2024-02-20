@@ -1,8 +1,7 @@
 # Microsoft SharePoint
 To integrate Microsoft SharePoint Online with **`aqilink`**, it is crucial to set up an application in the Microsoft Azure portal and configure it with a certificate. This certificate must then be utilized in **`aqilink`**'s configuration to connect successfully to SharePoint Online. This documentation provides a step-by-step guide to achieve this integration, ensuring secure and seamless connectivity between **`aqilink`** and SharePoint Online. Once you've accomplished this step, you can proceed with the next chapter [Connect SAP with SharePoint](./sharepoint.md).
 
-
-## Prerequisites
+## Prerequisites <!-- {docsify-ignore} -->
 Before starting, ensure you have the following:
 * **Active Microsoft Azure Subscription:** You need an active subscription to Microsoft Azure. This subscription allows you to access the Azure portal and use Azure Active Directory (AD), which is crucial for registering your application and configuring authentication and permissions.
 

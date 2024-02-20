@@ -41,7 +41,7 @@ To prepare the SAP Content Repository for a secure connection, follow these step
 
 ![SAP Repo Setup](../_media/reference/https/sap_oac0_https.png)
 
-> Ensure that you remove the non-SSL Port Number; otherwise, the connection will fail.
+!> Ensure that you remove the non-SSL Port Number; otherwise, the connection will fail.
 
 4) Save the settings for the SAP Content Repository.
 5) Attempt to test the connection to the Content Repository or retrieve information from it by clicking one of the related buttons. Any connection test will now result in a failure with the following error:

@@ -2,7 +2,7 @@
 
 The `sapConnection.yaml` specifies the outbound connections to the SAP systems. It also includes the type of the connection, meaning, whether a Rest (OData) service or a SAP function module through RFC is invoked. Depending on the type, different properties are required. The below  tables lists all available properties for an outbound connection to the SAP system.
 
-> Depending on the **`aqilink`** license there can be as many definitions as required in this file.
+!> Depending on the **`aqilink`** license there can be as many definitions as required in this file.
 
 ## RFC Connections
 The following properties allows to create a connection through RFC with the SAP JavaConnector. It is possible to invoke any *remote enabled* function module in the SAP system. 
@@ -22,7 +22,7 @@ The following properties allows to create a connection through RFC with the SAP 
 
 ### Example Configuration
 
-```
+```yaml
 - name: sapS4H
   type: rfc
   user: S4H_AQIPRO

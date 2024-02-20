@@ -1,17 +1,18 @@
 # Start `aqilink` application
 With the [basic app configuration](installation/app-configuration.md) files from the previous section in hand, it's time to start the container using the image you've downloaded. This chapter will guide you through the process of running **`aqilink`** within the container runtime of [Docker](https://docs.docker.com). To run the SAP integration in production mode, this procedure is tailored for [Docker Swarm](https://docs.docker.com/get-started/swarm-deploy/) as the orchestration tool.
 
-> For other container runtimes and orchestration tools, the steps may vary and will need to be adapted accordingly.
+!> For other container runtimes and orchestration tools, the steps may vary and will need to be adapted accordingly.
 
 ## Docker Load
 Before starting the application the **`aqilink`** image must be extracted from the downloaded *tar.gz* file using the [docker load](https://docs.docker.com/engine/reference/commandline/load/) command.
 
-```
+```powershell
 docker load -i aqilink_<VERSION>.tar.gz
 ```
 
 To check whether the image is now available use the [docker image ls](https://docs.docker.com/engine/reference/commandline/image_ls/) command along with the *--filter* option to only list the **aqilink** image:
-```
+
+```powershell
 docker image ls --filter "reference=aqilink"
 ```
 The output after executing both commands sequentially should look like:
@@ -34,7 +35,7 @@ The structure of the folder should now look like:
 ## Production Mode
 The use of orchestration tools like Docker Swarm or Kubernetes necessitates having all related files within the image. To meet this requirement, a custom Docker image must be created that includes the previously maintained `/config/` folder and the SAP NetWeaver SDK.
 
-> Make sure that all settings in the `/configs/` folder are correct.
+!> Make sure that all settings in the `/configs/` folder are correct.
 
 ### Create Dockerfile for custom image
 
@@ -43,7 +44,7 @@ If not yet done, create a file with name `Dockerfile` in the newly created folde
  - Replace the `<VERSION>` placeholder with the version of the **`aqilink`** Docker image in the current folder.
  - Make sure that the target path of the last COPY command below match the path in parameter `publicKeyPath` of the `app.yaml` file in the `/configs` folder.
 
-```
+```docker
 FROM aqilink:<VERSION>
 
 ARG SAPNWRFC_HOME='/usr/local/sap/nwrfcsdk'
@@ -63,7 +64,7 @@ CMD ["node", "dist/main"]
 
 Use [docker build](https://docs.docker.com/engine/reference/commandline/build/) command to create the new image based on the `Dockerfile` above with a custom specific tag. Navigate to the temporary folder with a command-line shell and execute the following command (while `aqilink_custom_image` is the name of the new image):
 
-```
+```powershell
 docker build . -t "aqilink_custom_image"
 ```
 
@@ -74,13 +75,13 @@ Double-check the successful creation with [docker image ls](https://docs.docker.
 ### Create docker-compose.yaml
 To start the container based on the image, a `docker-compose.yaml` must be created. To do so, create a new file with name `docker-compose.aqilink_custom_image.yaml` and insert the content below. 
 
-> Consult your Docker and/or Orchestration system (Docker Swarm, Kubernetes, etc.) expert to create the file content the correct way.
+!> Consult your Docker and/or Orchestration system (Docker Swarm, Kubernetes, etc.) expert to create the file content the correct way.
 
 **Before starting the container make sure to:** 
 1) change the image name under the *aqilink* service according the recently created name used for the custom image
 2) change the image name under the *nuxeo* service to the name of the desired Nuxeo image and make sure the port mapping is good and the volume matches. **Note:** The used Nuxeo image must contain the required `aqilink-nuxeo` module (refer to [Other related software](/installation/app-download?id=other-related-software))!
 
-```
+```docker
 version: '3.9'
 
 services:
@@ -114,7 +115,7 @@ volumes:
 ### Start container with docker-compose
 Finally, start the container based on the `YAML` above using the `docker-compose` command:
 
-```
+```powershell
 docker-compose -f docker-compose.aqilink_custom_image.yaml up -d
 ```
 
@@ -129,7 +130,7 @@ To ramp up **`aqilink`** for development purposes and test different configurati
  - Replace the `<VERSION>` placeholder with the version of the **`aqilink`** Docker image in the current folder.
  - Ensure that the specified Nuxeo image for the *nuxeo* service contains the related **`aqilink`** module.
 
-```
+```docker
 version: '3.9'
 
 services:
@@ -162,11 +163,10 @@ services:
       - sapnet
 networks:
   sapnet:
-
 ```
 Now start the container using the `docker-compose` command as followed:
 
-```
+```powershell
 docker-compose -f docker-compose.dev.yaml up -d
 ```
 

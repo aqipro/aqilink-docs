@@ -1,5 +1,3 @@
-## Frequently Asked Questions
-
 ## Troubleshooting
 If you have trouble installing or running **`aqilink`**, the problem may be related to one of the following.
 
@@ -14,7 +12,7 @@ Refer to [Password Encryption](/reference/password-encryption) and [Basic App Co
 ### aqilink: Could not open the ICU common library / LD_LIBRARY_PATH
 This error occurs if a [Task](/configuration/aqishare/tasks) is executed that attempts to connect to the corresponding SAP system via RFC using the native libraries from the SAP NetWeaver SDK. The error results in the container crashing and is caused by the SAP native RFC libraries not being assigned during the application's startup.
 
-> This error should only occur when starting the container through `docker-compose.yaml` (refer to [Development Mode](/installation/app-start.md#development-mode)).
+!> This error should only occur when starting the container through `docker-compose.yaml` (refer to [Development Mode](/installation/app-start.md#development-mode)).
 
 In your `docker-compose.yaml`, verify that the following command has been specified for the **`aqilink`** service. The crucial part is the execution of  `/sbin/ldconfig` before starting the app:
 
@@ -23,6 +21,23 @@ In your `docker-compose.yaml`, verify that the following command has been specif
  ```
 ![Mapping to native SAP libs missing](/_media/faq/0005_aqilink_ldconfig_missin_dev-mode.png)
  
+### aqilink: Certificate with identifier used to sign the client assertion is expired
+!>This this error can only raise if you use Microsoft SharePoint.
+
+If your SharePoint connection to SAP is broken and you encounter a similar error message as shown below in the **`aqilink`** log file, this suggests that the certificate used in Microsoft Azure AD is either invalid or has expired. In this case, verify the certificate's validity in the Azure AD portal (Refer to [Create Microsoft Azure AD Application](/configuration/storages/sharepoint/azure)). If there is a need to renew the certificate, ensure that any changed properties related to the certificate (such as the Thumbprint or the private key of the new certificate) are updated in the related storage configurations (Refer to [Storage Connections](/configuration/aqilink/?id=microsoft-sharepoint-online-spo)).
+
+```
+[Nest] 21 - 01/24/2024, 9:57:00 AM ERROR [TaskProducerService] ServerError: invalid_client: 700027 - 
+[2024-01-24 09:57:00Z]: AADSTS700027: The certificate with identifier used to sign the client assertion is expired on
+application. [Reason - The key used is expired., Thumbprint of key used by client: 'CDB57E003884DDE011897304FE291EB539812CCC',
+Found key 'Start=01/23/2023 13:33:28, End=01/23/2024 13:33:28', Please visit the Azure Portal, Graph Explorer 
+or directly use MS Graph to see configured keys for app Id '94bc0b64-d83e-4b45-afd0-3b2c84f16a00'. 
+Review the documentation at https://docs.microsoft.com/en-us/graph/deployments to determine the corresponding service 
+endpoint and https://docs.microsoft.com/en-us/graph/api/application-get?view=graph-rest-1.0&tabs=http to 
+build a query request URL, such as 'https://graph.microsoft.com/beta/applications/94bc0b64-d83e-4b45-afd0-3b2c84f16a00'].
+Trace ID: 5b14185d-49d6-47f1-be9a-48c578b24d00 Correlation ID: 74445a33-31f6-4b60-8319-db813e3bbe17 Timestamp: 2024-01-24 09:57:00Z - Correlation ID: 74445a33-31f6-4b60-8319-db813e3bbe17 - Trace ID: 5b14185d-49d6-47f1-be9a-48c578b24d00
+```
+
 ### SAP: Client connection broken
 If you encounter a message similar to the one below while pinging the connected repository from the SAP Content Repository administration (transaction code: `OAC0`), check the `app.yaml` file in the `/configs` folder. Ensure that the license key is entered correctly.
 

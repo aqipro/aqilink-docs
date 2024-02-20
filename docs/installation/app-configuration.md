@@ -21,7 +21,7 @@ For the other required files besides the `app.yaml` check the [Configuration](/c
 ## Enter License Key
 The most crucial setting in the `app.yaml` is the license key. This key should be stored under the `license` property of the file. If there is no license key, or if the provided license key is invalid, **`aqilink`** will run in demo mode.
 
-```
+```yaml
 license: <ENTER-LICENSE-KEY>
 ```
 
@@ -30,13 +30,13 @@ To manage the [Tasks](/configuration/aqishare/tasks.md) of **`aqilink`** the [Bu
 
 To enable the Web UI, the property `queueMonitorEnabled` should be added to the `app.yaml` file and set to value `TRUE`, as shown below.
 
-```
+```yaml
 queueMonitorEnabled: true
 ```
 
-> With the setting above, the Web UI is open to the public and can be reached at http://localhost:3000/queues by anyone who knows the IP address and port, without requiring further authentication.
+!> With the setting above, the Web UI is open to the public and can be reached at http://localhost:3000/queues by anyone who knows the IP address and port, without requiring further authentication.
 
-> We strongly advise against enabling the Web UI in production environments. It is designed solely for debugging in development systems.
+!> We strongly advise against enabling the Web UI in production environments. It is designed solely for debugging in development systems.
 
 ![Queue moitoring with bull-monitor](../_media/installation/bullmonitor.png)
 
@@ -56,16 +56,16 @@ The key used to represent Redis-related settings in the `app.yaml` is `redis`. B
 ## Password Encryption
 The use of encrypted passwords in configuration files necessitates the specification of the `publicKeyPath` parameter. This parameter should indicate the path within the app to the public key. The key must either be mapped to the container or copied into the image beforehand (as detailed in the chapter [App start](/installation/app-start.md)). If password encryption is not required, this setting can be omitted.
 
-> For details on generating key pairs and setting up password encryption, refer to [Password Encryption](/reference/password-encryption.md) in the reference section.
+!> For details on generating key pairs and setting up password encryption, refer to [Password Encryption](/reference/password-encryption.md) in the reference section.
 
-```
+```yaml
 publicKeyPath: /usr/src/app/configs/publicKey.pem
 ```
 
 ## Example Configuration
 This is a sample configuration that includes the most relevant properties as explained above. These properties must be present in the `app.yaml` file.
 
-```
+```yaml
 license: 12345-67890-09876-54321
 queueMonitorEnabled: false
 redis:

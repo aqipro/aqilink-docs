@@ -20,7 +20,7 @@ A configuration file within the Nuxeo repository is required to store the desire
 #### Creation & Configuration of the File
 Create a new JSON file on your machine, for example, name it `aqilink_configuration_connect_to_sap.json`, and then paste the content of the [example below](/reference/nuxeo-reference-connect-to-sap?id=example-configuration-file) into it. The structure of the JSON content requires an array with the name `mapping`. The array stores all definitions of the related use-cases as JSON objects. Here's a template of the main structure for the file content. The parameter description can be found in the table below.
 
-```
+```json
 {
     "mapping": [ 
         {
@@ -47,7 +47,7 @@ There are at least two facets required for each document that should be connecte
 
 ##### Facet `fct_sap_http_content`
 
- > This facet must always be added in order to use this feature! Depending on the use case, one or more of the facets below also have to be added.
+!> This facet must always be added in order to use this feature! Depending on the use case, one or more of the facets below also have to be added.
 
 The `fct_sap_http_content` facet contains all the mandatory fields necessary for the SAP HTTP-Content-Server connection. Ensure that you specify all properties of the table below in the `properties` section of the JSON file and set the values correctly.
 
@@ -104,7 +104,7 @@ This JSON example content covers the following three use cases:
  * Link document to an invoice SAP Business Object (second object in the `mapping`)
  * Initiate a SAP Workflow (last object in the `mapping`)
 
-```
+```json
 {
     "mapping": [ 
         {
@@ -192,15 +192,15 @@ Once the JSON configuration file from above is properly configured, it must be u
 
 1) Upload the recently created JSON configuration file to the specified `adminPath` folder of the SAP integration (refer to [Storage Connections](/configuration/aqilink/?id=hyland-nuxeo-repository)), and provide it with a descriptive title, such as `Connect to SAP Feature Configuration`.
 
-    > Note: The title is important to remember as it is required in the next step.
+!> Note: The title is important to remember as it is required in the next step.
 
-    ![Config file path](../_media/reference/feature_connect2sap_configfilepath.png)
+![Config file path](../_media/reference/feature_connect2sap_configfilepath.png)
 
 2) Now, the document in Nuxeo needs to be labeled as a configuration file for this feature. Therefore, the facet **`fct_sap_config_file_connect2sap`** (which is solely used for internal purposes to identify the configuration file throughout the entire repository) must be added to the document using a REST client such as Postman or any other suitable method. The following example of a `cURL` command will add the facet to the document located in the `adminPath`:
 
     > Please keep in mind that the document title `Connect to SAP Feature Configuration` is required in the request!
 
-```
+```powershell
 curl --location --request POST 'http://localhost:8080/nuxeo/api/v1/path/default-domain/workspaces/SAP/SAP%20Administration/Connect%20to%20SAP%20Feature%20Configuration/@op/Document.AddFacet' \
 --header 'Content-Type: application/json' \
 --header 'properties: *' \
@@ -216,7 +216,7 @@ curl --location --request POST 'http://localhost:8080/nuxeo/api/v1/path/default-
 
 Since this configuration file is available in the repository, it can potentially be accessed by any user in the system. This must be prevented.
 
-> The Nuxeo administrator must ensure that file access is restricted from end users.
+!> The Nuxeo administrator must ensure that file access is restricted from end users.
 
 Any changes in the file's content will immediately affect the business logic. We strongly recommend setting file permissions to allow only the administrator to access and edit the file.
 

@@ -1,12 +1,12 @@
 # Step-by-step: Connect SAP with Nuxeo
 Read this chapter to learn how to connect Nuxeo  via **`aqilink`** as SAP Content Repository. Make sure you're familiar with the configuration for [SAP Content Repository Connection](/installation/#sap-http-content-server-connection) and [Storage Connection](/configuration/aqishare/#storage-connections) before, as this is a prerequisite.
 
-> Check the [related Playlist on our Youtube channel](https://youtube.com/playlist?list=PLe5MRttD46M34mEYBGFvEKZVdQWER3QIW) to watch the steps below as video tutorial. 
+!> Check the [related Playlist on our Youtube channel](https://youtube.com/playlist?list=PLe5MRttD46M34mEYBGFvEKZVdQWER3QIW) to watch the steps below as video tutorial. 
 
 ## Create SAP Content Repository
 Follow these steps to create a new SAP Content Repository connected to **`aqilink`**.
 
-> Use a SAP dialog user with Administration permission.
+!> Use a SAP dialog user with Administration permission.
 
 1) Login to the SAP system and execute the following transaction: `OAC0`. It will display a list of all available SAP Content Repositories in the SAP system.
 2) To create a new SAP Content Repository switch to *Edit* mode (`CTRL`+`F4` ), then press `F5`.  
@@ -32,7 +32,7 @@ Follow these steps to create a new SAP Content Repository connected to **`aqilin
 
    ![SAP Customizing: OAC0 Test Connection](../../_media/sap_customizing/nuxeo/0002_oac0_create_test_connection.png)
 
-   > If you receive any other message than the above one, make sure the connection to the `aqilink` server is working. In case of a message similar like *`Payment required`* make sure to have entered the (valid) [license key](/installation/app-configuration?id=enter-license-key). 
+   !> If you receive any other message than the above one, make sure the connection to the `aqilink` server is working. In case of a message similar like *`Payment required`* make sure to have entered the (valid) [license key](/installation/app-configuration?id=enter-license-key). 
 
 6) The basic HTTP connection is working now.
 
@@ -53,7 +53,7 @@ The repository must be created on the content server as well.
 ## Secure Connection using Certificate
 Secure the connection between SAP and Nuxeo using a certificate that will be stored in Nuxeo to allow only authorized requests from the SAP Content Repository.
 
-> We strongly recommend securing the connection between SAP and Nuxeo at all times.
+!> We strongly recommend securing the connection between SAP and Nuxeo at all times.
 
 1) Click on section *Certificates*.
 2) Send the certificate by clicking on the envelope icon.
@@ -67,13 +67,13 @@ Secure the connection between SAP and Nuxeo using a certificate that will be sto
 
 4) Enable security by activating the certificate in Nuxeo.
 
-   > From the SAP HTTP-Content Server protocol specification, the certificate can only be activated from the content repository side. This is an additional security step. Therefore, no additional action is required in SAP. To proceed with the activation, login to Nuxeo.
+   !> From the SAP HTTP-Content Server protocol specification, the certificate can only be activated from the content repository side. This is an additional security step. Therefore, no additional action is required in SAP. To proceed with the activation, login to Nuxeo.
 
    4.1 Login to Nuxeo as with administrator privileges.
 
    4.2 Navigate to the customized `aqilink` administration folder which holds all the repository files and certificates from the SAP system. Refer to value of setting `adminPath` in the related [Storage Connections](/configuration/aqilink/#hyland-nuxeo-repository) chapter.
 
-   > Underneath this `adminPath` you'll find a folder named with the name you entered as [SAP HTTP-Content Server Connection](/configuration/aqilink/#sap-http-content-server-connection) in value for `HTTP Script` during the repository creation above. The folder is also concatenated by the name of the content repository itself.
+   !> Underneath this `adminPath` you'll find a folder named with the name you entered as [SAP HTTP-Content Server Connection](/configuration/aqilink/#sap-http-content-server-connection) in value for `HTTP Script` during the repository creation above. The folder is also concatenated by the name of the content repository itself.
    
    ![Nuxeo Administration: Activate Certificate](../../_media/sap_customizing/nuxeo/0007_nuxeo_adminpath.png)
 
@@ -116,6 +116,6 @@ This section describes how `aqilink`, and therefore the ArchiveLink interface, c
 
    ![SAP Functional Test: RSCMST Sub-reports 123](../../_media/sap_customizing/nuxeo/0013_se38_execute_rscmsth123.png)
 
-   > There is a known issue in the `RSCMSTH2` report in SAP BASIS components 740 to 752. If this report returns with a lot of errors regarding document protection like `DOC_P[rc]`, refer to the following SAP OSS notes: 2371386, 2198970. Skip this report unless the notes are implemented.
+   !> There is a known issue in the `RSCMSTH2` report in SAP BASIS components 740 to 752. If this report returns with a lot of errors regarding document protection like `DOC_P[rc]`, refer to the following SAP OSS notes: 2371386, 2198970. Skip this report unless the notes are implemented.
 
 Congratulations! You now have connected SAP successfully to Hyland Nuxeo and also proofen the technical connection is working fine. You're now able to go ahead and customize your use-cases in SAP to store documents in the new repository (Nuxeo). 
