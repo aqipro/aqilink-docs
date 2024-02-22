@@ -17,7 +17,7 @@ Follow these steps to create and register the application in Azure AD.
 ## Upload certificate for secure connection
  After creating the app, a certificate must be generated and uploaded to secure the communication between the **`aqilink`** and SharePoint Online. Follow these steps:
 
-1) **Optional:** Generate a Certificate (if you don't have one): Use tools like OpenSSL or PowerShell to generate a self-signed certificate. Make sure it's saved in a secure location.
+1) **Optional:** Generate a Certificate (if you don't have one): Use tools like OpenSSL or PowerShell to generate a self-signed certificate. Make sure it's saved in a secure location. Learn more in the [official Microsoft documentation](https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azuread).
 2) Upload the Certificate to Azure AD:
     * In the **`aqilink`**'s application overview page click on *Certificates & secrets* tab.
     * Then on "Upload certificate" and select your certificate file.
@@ -25,23 +25,26 @@ Follow these steps to create and register the application in Azure AD.
    ![Mircosoft Azure Upload Certificate](../../../_media/configuration/azure/azure_portal_upload_certificate.jpg)
 
 ## Grant Permissions and consent to the application
-To allow the **`aqilink`** app to access SharePoint Online, you must grant the necessary permissions. 
+To allow the **`aqilink`** application to access SharePoint Online, you must grant the necessary permissions. 
 1) From the **`aqilink`**'s application overview page click on *API permission* in the menu.
-   1) Remove the *User.Read* permission for Microsoft Graph, as this is not required by the **`aqilink`** app.
-   2) Add the new permission *Sites.Read.All* from the SharePoint **Application permission** (not "Delegated permission") list
-   3) Grant the missing Admin consent for the permission. The section should now look similar to this: 
+   1) Remove the **_User.Read_** permission for Microsoft Graph.
+   2) Click *Add a permission*, then choose the SharePoint API and click on **Application permissions**.
+   3) Search for permission **_Sites.Manage.All_** and select it from the list. 
+      > The **_Sites.Manage.All_** permission allows the **`aqilink`** application to read, create, update, and delete document libraries and lists in all site collections without a signed in user.
+   4) Grant admin consent for the new permission by clicking on *Grant admin consent for {{companyName}}*.
+      The section should now look similar to this: 
       ![Mircosoft Azure Grant Permission](../../../_media/configuration/azure/azure_portal_grant_permission.jpg)
 
 !> Note the link on the bottom of the *API Permissions* page which redirects you to the *Enterprise applications* view!
 
-1) Grant Admin consent to the application 
+1) Grant permissions to the **`aqilink`** application on behalf of all users (delegated permissions).
    1) Navigate to the *Enterprise applications* view (as mentioned above) and review the added permission
-   2) Click *Grant admin consent for ...*:
+   2) Click *Grant admin consent for {{companyName}}*:
       ![Mircosoft Azure Grant Admin Consent](../../../_media/configuration/azure/azure_portal_enterprise_grant_permission_overview.jpg)
     3) Now, you must accept the requested permissions:
       ![Mircosoft Azure Grant Admin Consent](../../../_media/configuration/azure/azure_portal_enterprise_grant_permission.jpg)
 
-> All required permissions has been assigned and consent approved. The Azure AD **`aqilink`** application was configured properly.
+> All required permissions have been assigned, and consent has been approved on behalf of the administrator for all users. The Azure AD **`aqilink`** application was configured properly.
 
 ## Obtaining required information
 After setting up the application, it is necessary to note down a few values, as these are required for the [Storage Connection](/configuration/aqilink/?id=microsoft-sharepoint-online-spo) in **`aqilink`**. Navigate back to the Azure AD **`aqilink`** application and collect the following information:

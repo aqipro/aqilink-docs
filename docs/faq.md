@@ -61,4 +61,6 @@ When testing the basic connection via **`aqilink`** to the repository, if the me
 ### SAP: 500 Internal Server Error
 When testing the basic connection via **`aqilink`** to the repository, if the message `500 Internal Server Error` is returned, this could indicate several possible issues with the current configuration. Check the related log files of the **`aqilink`** and/or repository container. For instance, if Nuxeo is the repository behind **`aqilink`**, ensure that the service name in the `docker-compose.yaml` matches the name in the `baseUrl` parameter of the [`storage.yaml`](/configuration/aqilink/#hyland-nuxeo-repository) configuration file. Also, verify that all services in the `docker-compose.yaml` are using the same network.
 
+!>If **SharePoint** is to be connected as an SAP Content Repository, ensure that the created Azure AD application has the appropriate permissions. Refer to the [Create Microsoft Azure Application](/configuration/storages/sharepoint/azure) documentation for guidance.
+
 ![Internal Server Error](/_media/faq/0005_sap_internalServerError.png)
